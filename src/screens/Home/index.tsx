@@ -1,10 +1,8 @@
 import React from 'react';
 import { View, Text, Button, Image } from 'react-native';
+
 import { styles } from './styles';
-import {Background} from '../../components/Background'
-// import { MaterialCommunityIcons } from '@expo/vector-icons';
-//import { FontAwesome } from '@expo/vector-icons';
-import {BotHome, BotLoginSegundo} from '../../components/registerButton/';
+import { BotHome, BotLoginSegundo } from '../../components/registerButton/';
 import firebase from '../../../src/firebaseConnection';
 
 export function Home({navigation}){

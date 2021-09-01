@@ -12,11 +12,10 @@ export const styles =  StyleSheet.create({
         marginTop: 200
     },
     icon: {
-    marginLeft: 20,
-    marginRight: 5,
-    width: 100,
-    height: 100
-    
+        marginLeft: 20,
+        marginRight: 5,
+        width: 100,
+        height: 100
     },
     input: {
         backgroundColor: 'white',

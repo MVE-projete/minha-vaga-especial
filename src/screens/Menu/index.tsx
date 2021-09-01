@@ -1,9 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View,TouchableOpacity, SafeAreaView, } from 'react-native';
-import { AntDesign } from '@expo/vector-icons'; 
-import { FontAwesome5 } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+
+import { AntDesign, FontAwesome5, Ionicons} from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar';
+
 import { Botlogout } from '../../components/registerButton';
 import firebase from '../../firebaseConnection'
 
@@ -21,20 +21,50 @@ export function Menu() {
       <SafeAreaView>
     
      <TouchableOpacity style={styles.button}>
-	  <FontAwesome5 name="map-marked-alt" size={26} color="black"  />
-	  <Text style={styles.buttontext}>Buscar vaga</Text>
+
+	  <FontAwesome5 
+        name="map-marked-alt" 
+        size={26} 
+        color="black"  />
+	  <Text 
+        style={styles.buttontext}>
+          Buscar vaga
+    </Text>
+
       </TouchableOpacity>
 	 
-	 <TouchableOpacity style={styles.button}>
-	  <AntDesign name="checkcircle" size={24} color="black" />
-      <Text style={styles.buttontext}>Validar vaga</Text>
+	 <TouchableOpacity 
+        style={styles.button}>
+
+	    <AntDesign 
+        name="checkcircle" 
+        size={24} 
+        color="black" />
+
+      <Text 
+      style={styles.buttontext}>
+        Validar vaga
+      </Text>
+
 	 </TouchableOpacity>
 	
-	 <TouchableOpacity style={styles.button}>
-      <Ionicons name="information-circle" size={28} color="black" />
-      <Text style={styles.buttontext}>Informações úteis</Text>
+	 <TouchableOpacity 
+   style={styles.button}>
+      <Ionicons 
+        name="information-circle" 
+        size={28} 
+        color="black" />
+
+      <Text 
+      style={styles.buttontext}>
+        Informações úteis
+        </Text>
+
      </TouchableOpacity>
-      <StatusBar style="auto" />
+
+      <StatusBar 
+      style="auto" />
+
       <Botlogout 
         onPress={logout}/>
     
@@ -68,7 +98,7 @@ const styles = StyleSheet.create({
     
 },
   buttontext:{
-    color: 'white',
+  color: 'white',
 	fontSize: 28,
 	fontWeight: "bold",
 	paddingLeft: 10,

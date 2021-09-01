@@ -1,18 +1,14 @@
-import React, { useReducer } from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, Image, Text} from 'react-native'
+
 import { styles } from './styles';
 import { BotLoginSegundo } from '../../components/registerButton';
-import { useState } from 'react';
 import firebase from '../../../src/firebaseConnection';
 
 export function Login({navigation}){
 
-    
-        
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
 
     async function logar(){
         await firebase.auth().signInWithEmailAndPassword(email, password)
@@ -24,17 +20,14 @@ export function Login({navigation}){
             alert('Algo deu errado!');
             return;
         })
-
-
     }
-
 
     return(
         <View>
             <View style={styles.header}>
                 <Image
-            source={require('../../../assets/icon.png')}
-            style={styles.icon} />
+                    source={require('../../../assets/icon.png')}
+                    style={styles.icon} />
                 <Text style={styles.title}>
                     Minha Vaga {"\n"}
                     {`  `}Especial
