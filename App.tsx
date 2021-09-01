@@ -1,15 +1,14 @@
 import React, { useReducer } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import { Menu } from './src/screens/Menu'
-import { RegistrationScreen }  from './src/screens/registrationScreen/';
 import { Home } from './src/screens/Home/';
-import {Background} from './src/components/Background'
-import {LinearGradient} from 'expo-linear-gradient';
-
+import { Login } from './src/screens/Login';
+import { RegistrationScreen }  from './src/screens/registrationScreen/';
+import { MapaVaga } from './src/screens/MapaVaga';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Login } from './src/screens/Login';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -25,7 +24,7 @@ export default function App() {
             <NavigationContainer 
               theme={mainTheme}>
     <Navigator
-            initialRouteName="Home"
+            initialRouteName="MapaVaga"
             headerMode="none"
             screenOptions={{
               cardStyle:{
@@ -48,6 +47,10 @@ export default function App() {
             <Screen 
                 name="Login"
                 component={Login}
+            />
+            <Screen
+                name="MapaVaga"
+                component={MapaVaga}
             />
         </Navigator>
     
