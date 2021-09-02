@@ -1,0 +1,17 @@
+{
+  "name": "MVE",
+  "displayName": "MVE",
+  "expo": {
+    "name": "MVE",
+    "slug": "MVE",
+    "splash": {
+      "image": "./assets/splash.png",
+      "backgroundColor": "#B3E0FF",
+      "resizeMode": "cover"
+    },
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
