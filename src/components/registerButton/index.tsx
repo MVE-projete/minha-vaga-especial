@@ -3,15 +3,18 @@ import { Text } from 'react-native'
 import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 import { styles } from './styles'
 
+type Props = RectButtonProps & {
+    title: string;
+}
 
-export function BotRegist({...rest}: RectButtonProps ){
+export function BotBig({title, ...rest}: RectButtonProps ){
     return(
         <RectButton 
             style={styles.regist}
             {...rest}
         >
         <Text style={styles.text}>
-            Registrar
+            { title }
         </Text>
         </RectButton>
     );
@@ -30,42 +33,15 @@ export function BotLogin({...rest}: RectButtonProps ){
     );
 }
 
-export function BotHome({...rest}: RectButtonProps){
-    return(
-        <RectButton 
-        
-            style={styles.regist}
-            
-            {...rest}
-        >
-        <Text style={styles.text2}>
-            Registre-se 
-        </Text>
-        </RectButton>
-    );
-}
 
-export function BotLoginSegundo({...rest}: RectButtonProps ){
+export function BotMenor({title, ...rest}: RectButtonProps ){
     return(
         <RectButton 
             style={styles.loginsegundo}
             {...rest}
         >
         <Text style={styles.text2}>
-            Login
-        </Text>
-        </RectButton>
-    );
-}
-
-export function Botlogout({...rest}: RectButtonProps ){
-    return(
-        <RectButton 
-            style={styles.loginsegundo}
-            {...rest}
-        >
-        <Text style={styles.text2}>
-            Deslogar
+            { title }
         </Text>
         </RectButton>
     );

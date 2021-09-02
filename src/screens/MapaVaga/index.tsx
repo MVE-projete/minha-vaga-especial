@@ -2,14 +2,12 @@ import MapView from 'react-native-maps';
 import React, { useState, useEffect } from 'react';
 import { View, Text,StyleSheet, Button} from 'react-native';
 import firebase from '../../firebaseConnection';
-
-import { BotLoginSegundo } from '../../components/registerButton';
+import { BotMenor } from '../../components/registerButton';
 
 export function MapaVaga({navigation}){
   let color;
-  let aux;
   
-
+  const [aux, setAux] = useState(1);
   const [sensorv, setSensorv] = useState();
 
   useEffect(() => { //Função pra puxar o valor do sensor do firebase (armazenada na variável 'sensorv')
@@ -18,6 +16,11 @@ export function MapaVaga({navigation}){
       await firebase.database().ref('sensor').on('value', (snapshot) => {
         
         setSensorv(snapshot.val());
+        setAux(0);
+        setTimeout(function() {
+          setAux(1);
+        }, 10);
+      
         
         
       });
@@ -35,9 +38,17 @@ else if (sensorv == 0)
   color = 'blue';
 }
 
+function mudaPin(){
+  setAux(0);
+  setTimeout(function() {
+    setAux(1);
+  }, 1);
+
+}
 
   return (
-    
+    <View
+    style={{flex: 1}}>
     <MapView
         initialRegion={{
         latitude: -22.24,
@@ -69,7 +80,7 @@ else if (sensorv == 0)
 
     
   </MapView>
-  
+  </View>
   );
 }
 const styles= StyleSheet.create({

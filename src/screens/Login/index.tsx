@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Image, Text} from 'react-native'
 
 import { styles } from './styles';
-import { BotLoginSegundo } from '../../components/registerButton';
+import { BotMenor } from '../../components/registerButton';
 import firebase from '../../../src/firebaseConnection';
 
 export function Login({navigation}){
@@ -54,7 +54,8 @@ export function Login({navigation}){
             
             />
 
-            <BotLoginSegundo
+            <BotMenor
+            title="Fazer login"
             onPress={logar}/>
 
         </View>

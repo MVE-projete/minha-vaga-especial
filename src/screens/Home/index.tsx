@@ -2,10 +2,14 @@ import React from 'react';
 import { View, Text, Button, Image } from 'react-native';
 
 import { styles } from './styles';
-import { BotHome, BotLoginSegundo } from '../../components/registerButton/';
+import { BotBig, BotMenor } from '../../components/registerButton/';
 import firebase from '../../../src/firebaseConnection';
 
 export function Home({navigation}){
+
+setTimeout(function() {
+    
+}, 1000);
 
 
     return(
@@ -24,9 +28,11 @@ export function Home({navigation}){
                 MVE {'\n'}
             </Text>
 
-            <BotHome 
+            <BotBig
+            title="Registe-se"
             onPress={ () => navigation.navigate('RegistrationScreen')}/>
-            <BotLoginSegundo 
+            <BotMenor
+            title="Login" 
             onPress={ () =>firebase.auth().onAuthStateChanged((user) => {
                 if(user){
                     navigation.navigate('Menu');

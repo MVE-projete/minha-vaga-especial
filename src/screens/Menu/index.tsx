@@ -4,7 +4,7 @@ import { StyleSheet, Text, View,TouchableOpacity, SafeAreaView, } from 'react-na
 import { AntDesign, FontAwesome5, Ionicons} from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 
-import { Botlogout } from '../../components/registerButton';
+import { BotMenor } from '../../components/registerButton';
 import firebase from '../../firebaseConnection'
 
 export function Menu() {
@@ -65,7 +65,8 @@ export function Menu() {
       <StatusBar 
       style="auto" />
 
-      <Botlogout 
+      <BotMenor
+      title="Deslogar" 
         onPress={logout}/>
     
       </SafeAreaView>

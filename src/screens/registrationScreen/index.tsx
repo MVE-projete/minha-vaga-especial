@@ -2,7 +2,7 @@ import React from 'react';
 import { styles } from './styles';
 import { Button, Text, TextInput, View, Image, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { BotRegist, BotLogin } from '../../components/registerButton';
+import { BotBig, BotLogin } from '../../components/registerButton';
 import { Background } from '../../components/Background';
 import auth from '@react-native-firebase/auth';
 import { useState } from 'react';
@@ -78,7 +78,8 @@ export function RegistrationScreen({navigation}){
                 />
             
 
-            <BotRegist
+            <BotBig
+            title="Registrar"
             onPress={createUser} />
             <View style={styles.loginlink}>
                 <Text style={styles.text}>
