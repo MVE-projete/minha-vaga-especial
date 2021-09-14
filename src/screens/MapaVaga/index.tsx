@@ -15,7 +15,7 @@ export function MapaVaga({navigation}){
     async function dados(){
       await firebase.database().ref('sensor').on('value', (snapshot) => {
         
-        setSensorv(snapshot.val());
+        setSensorv(snapshot.val()); //cada vez que o valor do sensor mudar, ele dá um delay, tira o pino, e coloca de novo
         setAux(0);
         setTimeout(function() {
           setAux(1);

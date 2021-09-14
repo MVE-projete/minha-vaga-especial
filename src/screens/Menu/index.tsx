@@ -3,12 +3,24 @@ import { StyleSheet, Text, View,TouchableOpacity, SafeAreaView, } from 'react-na
 
 import { AntDesign, FontAwesome5, Ionicons} from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
+import { CommonActions } from '@react-navigation/native';
 
 import { BotMenor } from '../../components/registerButton';
 import firebase from '../../firebaseConnection'
 
-export function Menu() {
+export function Menu({navigation}) {
+
   async function logout(){
+
+    navigation.dispatch( //Serve para resetar a navegação (se a pessoa deslogou, ela não pode voltar no menu)
+      CommonActions.reset({
+        index: 1,
+        routes: [
+          { name: 'Home'}
+        ]
+      })
+    );
+
     await firebase.auth().signOut();
     alert("Deslogado");
 
@@ -20,7 +32,9 @@ export function Menu() {
 
       <SafeAreaView>
     
-     <TouchableOpacity style={styles.button}>
+     <TouchableOpacity style={styles.button}
+     onPress={() => navigation.navigate('MapaVaga')}>
+       
 
 	  <FontAwesome5 
         name="map-marked-alt" 
