@@ -9,6 +9,7 @@ import { RegistrationScreen }  from './src/screens/registrationScreen/';
 import { MapaVaga } from './src/screens/MapaVaga';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Touchid } from './src/screens/Touchid';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -24,7 +25,7 @@ export default function App() {
             <NavigationContainer 
               theme={mainTheme}>
     <Navigator
-            initialRouteName="MapaVaga"
+            initialRouteName="Home"
             headerMode="none"
             screenOptions={{
               cardStyle:{
@@ -51,6 +52,10 @@ export default function App() {
             <Screen
                 name="MapaVaga"
                 component={MapaVaga}
+            />
+            <Screen 
+                name="Touchid"
+                component={Touchid}
             />
         </Navigator>
     
