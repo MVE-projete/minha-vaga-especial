@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "791108802387",
+    "project_id": "minha-vaga-especial-18bb7",
+    "storage_bucket": "minha-vaga-especial-18bb7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791108802387:android:9f34ffef38c86bfb6db3a6",
+        "android_client_info": {
+          "package_name": "com.mve"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791108802387-rr7v8r5t5n9b68hfi8pg60he5o7hu51u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB87PBqWgBVPflAQL1hSAn0FN6UXTTCPtM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791108802387-rr7v8r5t5n9b68hfi8pg60he5o7hu51u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
