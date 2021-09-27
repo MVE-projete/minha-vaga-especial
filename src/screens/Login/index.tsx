@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Image, Text, Modal, Alert, Platform, SafeAreaView } from 'react-native'
 
 import { styles } from './styles';
-import { BotMenor } from '../../components/registerButton';
+import { BotMenor, BotPassworVis } from '../../components/registerButton';
 import firebase from '../../../src/firebaseConnection';
 
 import * as LocalAuthentication from "expo-local-authentication";
@@ -12,6 +12,7 @@ export function Login({navigation}){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [passwordVisibility, setPasswordVisible] = useState(false);
 
     async function logar(){
 
@@ -20,6 +21,7 @@ export function Login({navigation}){
             const { success, error } = await LocalAuthentication.authenticateAsync();
             if (success) 
             {
+                
                 await firebase.auth().signInWithEmailAndPassword(email, password)
                 .then( (value) => {
                     alert('Seja bem vindo!');
@@ -71,7 +73,8 @@ export function Login({navigation}){
                 </Text>
             </View>
 
-            <TextInput
+            <TextInput 
+
                 style={styles.input}
                 placeholder="E-mail"
                 onChangeText={texto => {
@@ -81,7 +84,8 @@ export function Login({navigation}){
             
             />
 
-            <TextInput 
+            <TextInput
+                secureTextEntry={passwordVisibility}
                 style={styles.input}
                 placeholder="Senha"
                 onChangeText={texto => {
@@ -95,6 +99,12 @@ export function Login({navigation}){
             title="Fazer login"
             onPress={()=>{setIsModalVisible(true)}}/>
 
+            <BotPassworVis
+            title="Mostrar senha"
+            onPress={()=>{setPasswordVisible(!passwordVisibility)}}/>
+
+
+            
         </View>
 
     )

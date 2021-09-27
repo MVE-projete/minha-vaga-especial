@@ -29,10 +29,7 @@ setTimeout(function() {
             </Text>
 
             <BotBig
-            title="Registe-se"
-            onPress={ () => navigation.navigate('RegistrationScreen')}/>
-            <BotMenor
-            title="Login" 
+            title="Entrar" 
             onPress={ () =>firebase.auth().onAuthStateChanged((user) => {
                 if(user){
                     navigation.navigate('Menu');
@@ -41,6 +38,12 @@ setTimeout(function() {
                     navigation.navigate('Login');
                 }
             })}/>
+
+            <BotMenor
+            title="Registrar-se"
+            onPress={ () => 
+                navigation.navigate('RegistrationScreen')}/>
+            
             
         </View>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native'
 import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
-import { styles } from './styles'
+import { styles } from './styles';
 
 type Props = RectButtonProps & {
     title: string;
@@ -27,7 +27,7 @@ export function BotLogin({...rest}: RectButtonProps ){
             {...rest}
         >
         <Text style={styles.text2}>
-            Faça Login.
+            Entrar
         </Text>
         </RectButton>
     );
@@ -46,3 +46,18 @@ export function BotMenor({title, ...rest}: RectButtonProps ){
         </RectButton>
     );
 }
+
+
+export function BotPassworVis({title, ...rest}: RectButtonProps ){
+    return(
+        <RectButton 
+            style={styles.loginterceiro}
+            {...rest}
+        >
+        <Text style={styles.text2}>
+            { title }
+        </Text>
+        </RectButton>
+    );
+}
+

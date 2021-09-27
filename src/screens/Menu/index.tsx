@@ -80,7 +80,7 @@ export function Menu({navigation}) {
       style="auto" />
 
       <BotMenor
-      title="Deslogar" 
+      title="Sair" 
         onPress={logout}/>
     
       </SafeAreaView>

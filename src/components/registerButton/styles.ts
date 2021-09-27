@@ -42,6 +42,15 @@ export const styles =  StyleSheet.create({
         marginRight: 'auto',
         marginLeft: 'auto',
         marginTop: 20
+    },
+    loginterceiro:{
+        height: 30,
+        width: 100,
+        borderRadius: 8,
+        marginRight: 'auto',
+        marginTop: 15,
+        marginLeft: 'auto'
+
     }
     
     

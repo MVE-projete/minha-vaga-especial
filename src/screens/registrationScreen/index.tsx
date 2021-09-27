@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import firebase from '../../firebaseConnection';
 import * as LocalAuthentication from "expo-local-authentication";
+//import DeviceInfo from 'react-native-device-info';
 
 
 
@@ -32,7 +33,7 @@ export function RegistrationScreen({navigation}){
             const { success, error } = await LocalAuthentication.authenticateAsync();
             if (success) 
             {
-
+                    
 
                     await firebase.auth().createUserWithEmailAndPassword(email,password)
                     .then( (value) => {
@@ -93,7 +94,7 @@ export function RegistrationScreen({navigation}){
     return(
         <View style={ styles.container }>
             
-
+{alert('Prezado Usuário(a): caso já possua conta no aplicativo MVE, pressione o botão "Entrar"')}
             {Platform.OS === "android" && (
         <Modal
         

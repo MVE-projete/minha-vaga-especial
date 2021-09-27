@@ -1,8 +1,8 @@
 import MapView from 'react-native-maps';
 import React, { useState, useEffect } from 'react';
-import { View, Text,StyleSheet, Button} from 'react-native';
+import { View, Text,StyleSheet, Button, ScrollView, Dimensions } from 'react-native';
 import firebase from '../../firebaseConnection';
-import { BotMenor } from '../../components/registerButton';
+import { BotBig, BotMenor } from '../../components/registerButton';
 
 export function MapaVaga({navigation}){
   let color;
@@ -48,15 +48,16 @@ function mudaPin(){
 
   return (
     <View
-    style={{flex: 1}}>
+    style={styles.container}>
     <MapView
         initialRegion={{
         latitude: -22.24,
         longitude: -45.71,
-        latitudeDelta: 0.0922,
+        latitudeDelta: 0.0922, //zoom
         longitudeDelta: 0.0421,
     }}
     style={styles.MapView}
+    rotateEnabled={false}
     
   >
 
@@ -80,10 +81,31 @@ function mudaPin(){
 
     
   </MapView>
+
+  <ScrollView 
+    style={styles.placesContainer}
+    horizontal
+    pagingEnabled> 
+    <View style={styles.place}>
+    </View>
+    <View style={styles.place}></View>
+
+  </ScrollView>
+
   </View>
   );
 }
+
+const { height, width } = Dimensions.get('window');
+
 const styles= StyleSheet.create({
+container:{
+  flex: 1,
+  justifyContent: 'flex-end',
+  alignItems: 'flex-end',
+
+
+},
 MapView:{
   position: 'absolute',
   top: 0,
@@ -91,5 +113,20 @@ MapView:{
   bottom: 0,
   right: 0,
 },
+
+placesContainer:{
+  width: '100%',
+  maxHeight: 200
+
+},
+place:{
+  width: width -40,
+  maxHeight: 200,
+  backgroundColor: '#FFF',
+  marginHorizontal: 20,
+  borderRadius: 12
+
+}
+
 
 })
