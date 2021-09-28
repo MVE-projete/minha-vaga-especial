@@ -4,7 +4,39 @@ import { View, Text,StyleSheet, Button, ScrollView, Dimensions } from 'react-nat
 import firebase from '../../firebaseConnection';
 import { BotBig, BotMenor } from '../../components/registerButton';
 
+const { height, width } = Dimensions.get('window');
+
 export function MapaVaga({navigation}){
+  state = { //colocar tres estados do pino (tres cores) E FAZER A AUTENTICÇÃO e APK
+    places: [
+      {
+        id: 1,
+        rua: 'Adélino Carneiro Pinto',
+        bairro: 'Centro',
+        description: 'Estacionamento Unissul',
+        latitude: -22.25473293664138, 
+        longitude: -45.70466075394644,
+      },
+      {
+        id: 2,
+        rua: 'Adélino Carneiro Pinto',
+        bairro: 'Centro',
+        description: 'Estacionamento Unissul',
+        latitude: -22.254762104945637, 
+        longitude: -45.7047271386185,
+      },
+      {
+        id: 3,
+        rua: 'A. José Cleto Duarte',
+        bairro: 'Centro',
+        description: 'Estacionamento Unissul',
+        latitude: -22.254351255893518,
+        longitude:  -45.7053063842081
+      }
+    ],
+  };
+
+
   let color;
   
   const [aux, setAux] = useState(1);
@@ -29,55 +61,59 @@ export function MapaVaga({navigation}){
     dados();
   }, []);
 
-if (sensorv == 1)
-{
-  color = 'green';
-}
-else if (sensorv == 0)
-{
-  color = 'blue';
-}
+  if (sensorv == 1)
+  {
+    color = 'green';
+  }
+  else if (sensorv == 0)
+  {
+    color = 'blue';
+  }
 
-function mudaPin(){
-  setAux(0);
-  setTimeout(function() {
-    setAux(1);
-  }, 1);
+  function mudaPin(){
+    setAux(0);
+    setTimeout(function() {
+      setAux(1);
+    }, 1);
 
-}
+  }
+
+  const { latitude, longitude } = this.state.places[0];
 
   return (
-    <View
-    style={styles.container}>
-    <MapView
-        initialRegion={{
-        latitude: -22.24,
-        longitude: -45.71,
-        latitudeDelta: 0.0922, //zoom
-        longitudeDelta: 0.0421,
-    }}
-    style={styles.MapView}
-    rotateEnabled={false}
-    
-  >
+    <View style={styles.container}>
 
-{aux == 1 ? //Em todos os dois casos ele coloca o pincolor com o valor de 'color'. E o color varia conforme varia o sensorv (linha 27)
-(
-  <MapView.Marker 
-          pinColor={color}
-          coordinate={{
-          latitude: -22.24,
-          longitude: -45.71,
-          
-                      }}
+    <MapView
+        ref={map => this.mapView = map}
+          initialRegion={{
+          latitude: -22.25473293664138, 
+          longitude: -45.70466075394644,
+          latitudeDelta: 0.0030733, //zoom
+          longitudeDelta: 0.0014033,
+        }}
+        style={styles.MapView}
+        rotateEnabled={false}
+    >
+
+    {aux == 1 ? //Em todos os dois casos ele coloca o pincolor com o valor de 'color'. E o color varia conforme varia o sensorv (linha 27)
+      this.state.places.map(place => (
+        <MapView.Marker 
+                title={"Vaga " + place.id}
+                description={place.description}
+                ref={mark => place.mark = mark}
+                key={place.id}
+                pinColor={color}
+                coordinate={{
+                  latitude: place.latitude,
+                  longitude: place.longitude,
+              }}
         />
-    
-):
-(
-  
-      <>
-      </>
-)}
+    ))
+    :
+    (
+          <>
+          </>
+    )}
 
     
   </MapView>
@@ -85,10 +121,51 @@ function mudaPin(){
   <ScrollView 
     style={styles.placesContainer}
     horizontal
-    pagingEnabled> 
-    <View style={styles.place}>
-    </View>
-    <View style={styles.place}></View>
+    pagingEnabled
+    
+    onMomentumScrollEnd={e => {
+      const scrolled = e.nativeEvent.contentOffset.x;
+      const place = (scrolled > 0)
+      ? scrolled / Dimensions.get('window').width
+      : 0;
+
+      const place2 = Math.round(place);
+
+      const { latitude, longitude, mark } = this.state.places[place2];
+
+      this.mapView.animateToCoordinate({
+        latitude,
+        longitude,
+      }, 1000);
+
+      setTimeout(() => {
+        mark.showCallout();
+
+      }, 1000);
+
+
+    }}> 
+
+    { this.state.places.map(place => (
+        <View 
+          key={place.id}
+          style={styles.place}>
+
+        <Text style={styles.text}>
+          Vaga {place.id}, {place.description}
+        </Text>  
+        <Text style={styles.text2}>
+          Rua: {place.rua}
+        </Text>  
+        <Text style={styles.text2}>
+          Bairro: {place.bairro}
+        </Text> 
+        <BotBig 
+          title="Validar vaga"/>
+
+        </View>
+
+    ))}
 
   </ScrollView>
 
@@ -96,7 +173,6 @@ function mudaPin(){
   );
 }
 
-const { height, width } = Dimensions.get('window');
 
 const styles= StyleSheet.create({
 container:{
@@ -126,6 +202,16 @@ place:{
   marginHorizontal: 20,
   borderRadius: 12
 
+},
+text: {
+  marginTop: 10,
+  fontWeight: 'bold',
+  fontSize: 17,
+  marginLeft: 10
+},
+text2: {
+  fontSize: 15,
+  marginLeft: 10
 }
 
 
