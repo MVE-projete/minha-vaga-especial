@@ -3,6 +3,7 @@ apply plugin: 'com.google.gms.google-services' // <- Add this line
 dependencies {
   // ...
   implementation project(path: ":@react-native-firebase_messaging")
+  implementation 'com.google.android.gms:play-services-maps:17.0.1'
 }
 
 import com.android.build.OutputFile

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 
 import com.facebook.react.PackageList;
+import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactApplication;
 import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import com.facebook.react.ReactInstanceManager;
