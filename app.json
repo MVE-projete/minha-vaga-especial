@@ -12,6 +12,12 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android": {
+      "package": "com.juriolli.MVE",
+      "config": {
+        "googleMaps": { "apiKey": "AIzaSyDSSZ1c0k1ug6aUTdBi0OLO7Zz8NySphcs"}
+      }
+    }
   }
 }
