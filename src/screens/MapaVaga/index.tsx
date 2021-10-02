@@ -1,8 +1,18 @@
 import MapView from 'react-native-maps';
 import React, { useState, useEffect } from 'react';
-import { View, Text,StyleSheet, Button, ScrollView, Dimensions, TextInput, Platform, Modal } from 'react-native';
+import { View, 
+          Text,
+          StyleSheet, 
+          Button, 
+          ScrollView, 
+          Dimensions, 
+          TextInput, 
+          Platform, 
+           } from 'react-native';
+
 import firebase from '../../firebaseConnection';
 import { BotBig, BotMenor } from '../../components/registerButton';
+import Modal from 'react-native-modal';
 
 const { height, width } = Dimensions.get('window');
 let cor;
@@ -47,7 +57,13 @@ export function MapaVaga({navigation}){
   const [sensorv, setSensorv] = useState();
   const [validation, setValidation] = useState();
   const [validstate, setValidstate] = useState(0);
-  let isModalVisible = false;
+  const [IsModalVisible, setIsModalVisible] = useState(false);
+
+  function toggleModal(){
+    setIsModalVisible(!IsModalVisible);
+    console.log(IsModalVisible);
+  };
+
 
 
   function valid(){
@@ -59,6 +75,7 @@ export function MapaVaga({navigation}){
       })
       alert("Validação feita com sucesso");
       setValidstate(1);
+      toggleModal();
     }
     else
     {
@@ -116,6 +133,37 @@ export function MapaVaga({navigation}){
 
   return (
     <View style={styles.container}>
+
+{Platform.OS === "android" && (
+        <Modal
+        isVisible={IsModalVisible}
+          
+        >
+          <View style ={{backgroundColor: 'white', borderRadius: 12, height: 270}}>
+          <TextInput
+            style={styles.input}
+            placeholder="Código da vaga"
+            keyboardType="numeric"
+            onChangeText={texto => {
+              setValidation(texto)
+          }}
+          />
+          
+
+
+          <Button 
+            title="Validar!"
+            onPress={valid}/>
+            <View style={{height: 30}}/>
+          <View style={{flexDirection: 'row'}}>
+            <View style={{backgroundColor: 'white',width:150}}></View>
+            <Button title="Voltar!" onPress={toggleModal} />
+            <View style={{backgroundColor: 'white', width: 150}}></View>
+          </View>
+         </View>
+        </Modal>
+      )}
+
 
     <MapView
         ref={map => this.mapView = map}
@@ -202,15 +250,10 @@ export function MapaVaga({navigation}){
         <Text style={styles.text2}>
           Bairro: {place.bairro}
         </Text> 
-        <TextInput
-        style={{backgroundColor: '#B3E0FF', borderRadius: 5, marginRight: 20, marginLeft: 20, height: 40}}
-        placeholder="Código da vaga"
-        onChangeText={texto => {
-            setValidation(texto)
-        }}/>
+        
         <BotBig 
           title="Validar vaga"
-          onPress={valid}/>
+          onPress={toggleModal}/>
         
 
         </View>
@@ -262,7 +305,14 @@ text: {
 text2: {
   fontSize: 15,
   marginLeft: 10
-}
+},
+input: {
+  height: 40,
+  margin: 30,
+  borderWidth: 1,
+  borderRadius: 8,
+  paddingLeft: 10
+},
 
 
 })

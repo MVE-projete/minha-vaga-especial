@@ -24,7 +24,7 @@ export function Login({navigation}){
                 
                 await firebase.auth().signInWithEmailAndPassword(email, password)
                 .then( (value) => {
-                    alert('Seja bem vindo!');
+                    //alert('Seja bem vindo!');
                     navigation.navigate('Menu')
                 })
                 .catch( (error) => {
