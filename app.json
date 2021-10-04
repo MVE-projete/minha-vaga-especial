@@ -6,7 +6,7 @@
     "slug": "MVE",
     "splash": {
       "image": "./assets/splash.png",
-      "backgroundColor": "#B3E0FF",
+      "backgroundColor": "#FFFFFF",
       "resizeMode": "cover"
     },
     "version": "1.0.0",
