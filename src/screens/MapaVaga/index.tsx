@@ -14,6 +14,7 @@ import firebase from '../../firebaseConnection';
 import { BotBig, BotMenor } from '../../components/registerButton';
 import Modal from 'react-native-modal';
 import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
+import { StatusBar } from 'expo-status-bar';
 
 
 const { height, width } = Dimensions.get('window');
@@ -60,7 +61,7 @@ export function MapaVaga({navigation}){
   const [aux, setAux] = useState(1);
   const [sensorv, setSensorv] = useState();
   const [validation, setValidation] = useState();
-  const [validstate, setValidstate] = useState(0);
+  const [validstate, setValidstate] = useState();
   const [IsModalVisible, setIsModalVisible] = useState(false);
   const [vaga, setVaga] = useState('');
 
@@ -151,17 +152,27 @@ export function MapaVaga({navigation}){
     <View style={styles.container}>
 
 {Platform.OS === "android" && (
+  <View>
+    <StatusBar
+      hidden={true} />
         <Modal
         isVisible={IsModalVisible}
           
         >
           <View style ={{backgroundColor: 'white', borderRadius: 12, height: 270}}>
           
-          <Text style={styles.text}>
-          Deseja validar a vaga {vaga}
+          <Text style={{
+            marginTop: 15,
+            marginBottom: 10,
+            fontWeight: 'bold',
+            fontSize: 20,
+            marginLeft: 'auto',
+            marginRight: 'auto'
+          }}>
+          Deseja validar a vaga? {vaga}
         </Text> 
          
-
+        
           <Button 
             title="Validar!"
             onPress={valid}/>
@@ -173,6 +184,7 @@ export function MapaVaga({navigation}){
           </View>
          </View>
         </Modal>
+      </View>
       )}
 
 

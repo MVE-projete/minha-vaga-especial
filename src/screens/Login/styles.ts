@@ -8,29 +8,33 @@ export const styles =  StyleSheet.create({
     },
     header: {
         alignItems: 'center',
-        flexDirection: 'row',
-        marginTop: 200
+        flexDirection: 'column',
+        marginTop: 100,
+        marginBottom: 30
     },
     icon: {
-        marginLeft: 20,
-        marginRight: 5,
-        width: 100,
-        height: 100
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        width: 200,
+        height: 200
     },
     input: {
         backgroundColor: 'white',
+        marginBottom: 2,
         height: 56,
         borderRadius: 8,
-        marginTop: 10,
-        marginLeft: 20,
-        marginRight: 20,
+        marginTop: 18,
+        marginLeft: 15,
+        marginRight: 25,
         paddingLeft: 10,
-        fontSize: 20
+        fontSize: 20,
+        borderBottomWidth: 0.7,
+         width: 300,
     },
     title: {
         fontSize: 30,
         marginLeft: 12,
         marginRight: 'auto',
-        fontWeight: 'bold'
+        fontFamily: 'TitilliumWeb_700Bold'
     }
 })

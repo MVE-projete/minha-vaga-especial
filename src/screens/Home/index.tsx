@@ -8,6 +8,7 @@ import firebase from '../../../src/firebaseConnection';
 import * as LocalAuthentication from "expo-local-authentication";
 import { useFonts, TitilliumWeb_300Light, TitilliumWeb_700Bold,TitilliumWeb_600SemiBold } from '@expo-google-fonts/titillium-web'
 import AppLoading from 'expo-app-loading';
+import { StatusBar } from 'expo-status-bar';
 
 export function Home({navigation}){
 
@@ -63,6 +64,8 @@ if(!fontsLoaded){
 else{
     return(
         <View style={styles.container}>
+            <StatusBar 
+                hidden={true}/>
 
             {Platform.OS === "android" && (
         <Modal
