@@ -8,6 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@expo-google-fonts/titillium-web": "^0.2.0",
     "@expo/vector-icons": "^12.0.5",
     "@mdi/js": "^5.9.55",
     "@mdi/react": "^1.5.0",
@@ -20,6 +21,8 @@
     "@react-navigation/native-stack": "^6.0.0",
     "@react-navigation/stack": "^6.0.1",
     "expo": "~41.0.1",
+    "expo-app-loading": "^1.1.2",
+    "expo-font": "~9.1.0",
     "expo-linear-gradient": "~9.1.0",
     "expo-local-authentication": "~11.0.2",
     "expo-splash-screen": "~0.10.2",
