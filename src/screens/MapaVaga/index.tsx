@@ -13,6 +13,8 @@ import { View,
 import firebase from '../../firebaseConnection';
 import { BotBig, BotMenor } from '../../components/registerButton';
 import Modal from 'react-native-modal';
+import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
+
 
 const { height, width } = Dimensions.get('window');
 let cor;
@@ -27,7 +29,7 @@ export function MapaVaga({navigation}){
         description: 'Estacionamento Unissul',
         latitude: -22.25473293664138, 
         longitude: -45.70466075394644,
-        codigo: 123,
+        codigo: 'A1',
       },
       {
         id: 1,
@@ -36,7 +38,7 @@ export function MapaVaga({navigation}){
         description: 'Estacionamento Unissul',
         latitude: -22.254762104945637, 
         longitude: -45.7047271386185,
-        codigo: 321,
+        codigo: 'A2',
       },
       {
         id: 2,
@@ -45,19 +47,22 @@ export function MapaVaga({navigation}){
         description: 'Estacionamento Unissul',
         latitude: -22.254351255893518,
         longitude:  -45.7053063842081,
-        codigo: 132, 
+        codigo: 'A3', 
       }
     ],
   };
 
 
   let color;
-  
+  let validar = 'Validar vaga';
+  let color2 = '#B3E8FF';
+
   const [aux, setAux] = useState(1);
   const [sensorv, setSensorv] = useState();
   const [validation, setValidation] = useState();
   const [validstate, setValidstate] = useState(0);
   const [IsModalVisible, setIsModalVisible] = useState(false);
+  const [vaga, setVaga] = useState('');
 
   function toggleModal(){
     setIsModalVisible(!IsModalVisible);
@@ -68,7 +73,7 @@ export function MapaVaga({navigation}){
 
   function valid(){
     
-    if(validation == 123)
+    if(validstate == 0)
     {
       firebase.database().ref('verificacao').update({
         valor: 1,
@@ -79,8 +84,11 @@ export function MapaVaga({navigation}){
     }
     else
     {
-      alert("Erro na validação!")
+      firebase.database().ref('verificacao').update({
+        valor: 0,
+      })
       setValidstate(0);
+      toggleModal();
     }
     setAux(0);
         setTimeout(function() {
@@ -110,18 +118,26 @@ export function MapaVaga({navigation}){
   if (sensorv == 1 && validstate == 1)
   {
     color = 'red';
+    color2 = '#DE7171';
+    validar = 'Você já validou uma vaga';
   }
   else if (sensorv == 0 && validstate == 0)
   {
     color = 'green';
+    color2 = '#B3E8FF';
+    validar = 'Validar vaga';
   }
   else if(sensorv == 1 && validstate == 0)
   {
     color = 'yellow';
+    color2 = '#B3E8FF';
+    validar = 'Validar vaga';
   }
   else if(sensorv == 0 && validstate == 1)
   {
     color = 'orange';
+    color2 = '#DE7171';
+    validar = 'Você já validou uma vaga';
   }
 
   
@@ -140,16 +156,11 @@ export function MapaVaga({navigation}){
           
         >
           <View style ={{backgroundColor: 'white', borderRadius: 12, height: 270}}>
-          <TextInput
-            style={styles.input}
-            placeholder="Código da vaga"
-            keyboardType="numeric"
-            onChangeText={texto => {
-              setValidation(texto)
-          }}
-          />
           
-
+          <Text style={styles.text}>
+          Deseja validar a vaga {vaga}
+        </Text> 
+         
 
           <Button 
             title="Validar!"
@@ -182,7 +193,7 @@ export function MapaVaga({navigation}){
       this.state.places.map(place => (
         <MapView.Marker 
                 title={"Vaga " + place.id}
-                description={place.description}
+                description={'Rua' + place.rua}
                 ref={mark => place.mark = mark}
                 key={place.id}
                 pinColor={cor[place.id]}
@@ -242,7 +253,7 @@ export function MapaVaga({navigation}){
           style={styles.place}>
 
         <Text style={styles.text}>
-          Vaga {place.id}, {place.description}
+          Vaga {place.id}
         </Text>  
         <Text style={styles.text2}>
           Rua: {place.rua}
@@ -250,13 +261,40 @@ export function MapaVaga({navigation}){
         <Text style={styles.text2}>
           Bairro: {place.bairro}
         </Text> 
-        
-        <BotBig 
-          title="Validar vaga"
-          onPress={toggleModal}/>
+        <Text style={styles.text2}>
+          Código: {place.codigo}
+        </Text> 
         
 
+
+        <RectButton 
+            style={{borderColor: '#FF11FF',
+            borderWidth: 12,
+            marginRight: 'auto',
+            marginLeft: 'auto',
+            height: 40,
+            width: 300,
+            backgroundColor: color2,
+            borderRadius: 12,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: 10}}
+            onPress={()=> {setIsModalVisible(!IsModalVisible);
+                          setVaga(place.codigo)}}
+        >
+        <Text style={{fontSize: 20,
+        fontWeight: 'bold'}}>
+          {validar}
+        </Text>
+        </RectButton>
+
+
+
+    
+
         </View>
+
+
 
     ))}
 

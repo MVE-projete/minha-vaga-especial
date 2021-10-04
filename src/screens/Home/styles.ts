@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { useFonts, TitilliumWeb_300Light, TitilliumWeb_600SemiBold } from '@expo-google-fonts/titillium-web';
 
 export const styles = StyleSheet.create({
     container: {
@@ -10,7 +11,7 @@ export const styles = StyleSheet.create({
     icon: {
         marginLeft: 'auto',
         marginRight: 'auto',
-        marginTop: 100,
+        marginTop: 80,
         borderRadius: 8,
         width: 250,
         height: 250,
@@ -27,7 +28,8 @@ export const styles = StyleSheet.create({
         marginLeft: 'auto',
         marginRight: 'auto',
         marginTop: 10,
-        fontSize: 23
+        fontSize: 23,
+        fontFamily: 'TitilliumWeb_300Light'
         
     },
     subtitledois:{
@@ -35,8 +37,26 @@ export const styles = StyleSheet.create({
         marginRight: 'auto',
         marginTop: 1,
         fontSize: 40,
-        fontWeight: 'bold'
+        fontFamily: 'TitilliumWeb_700Bold'
         
+    },
+    regist: {
+        borderColor: '#FF11FF',
+        borderWidth: 12,
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        height: 45,
+        width: 150,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 10
+        
+    },
+    text: {
+        fontSize: 20,
+        fontFamily: 'TitilliumWeb_600SemiBold'
     }
 })
 
