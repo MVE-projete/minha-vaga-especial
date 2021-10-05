@@ -23,10 +23,33 @@ export function RegistrationScreen({navigation}){
         const [password, setPassword] = useState('')
         const [name, setName] = useState('')
         const [selectedOption, setSelectedOption] = useState();
-        const [value, setValue] = useState();
-        const [valueaux, setValueaux] = useState();
+        const [value, setValue] = useState(0);
+        const [valueaux, setValueaux] = useState(0);
         
     const [isModalVisible, setIsModalVisible] = useState(false);
+
+    async function pushMethod()
+            {        
+                firebase.database().ref('usuarios/valor').on('value', (snapshot) => {
+                    setValue(snapshot.val());
+                });
+                const ax = email.indexOf('@');
+                const teste = email.slice(0, ax);
+                console.log(value)
+                const refer = firebase.database().ref('/users/'+ teste);
+                refer
+                    .set({
+                        tipo: selectedOption,
+                        valor: value,
+                        email: email,
+                        nome: name
+                    })
+                const reset = firebase.database().ref('usuarios');
+                reset.set({
+                    valor: value + 1
+                })
+
+            }
 
 
     async function createUser(){
@@ -41,11 +64,14 @@ export function RegistrationScreen({navigation}){
                     await firebase.auth().createUserWithEmailAndPassword(email,password)
                     .then( (value) => {
                         alert('Usuário criado com sucesso');
+                        setValueaux(1);
+                        pushMethod();
 
                         
 
                     })
                     .catch( (error) => {
+                        setValueaux(0);
                         if(error.code === 'auth/weak-password')
                         {
                             alert('A senha deve conter pelo menos 6 caracteres');
@@ -67,26 +93,10 @@ export function RegistrationScreen({navigation}){
 
                 setIsModalVisible(false);
 
-                
-        firebase.database().ref('users').once('child_added', (snapshot) => {
-            setValue(snapshot.val().valor + 1);
-            alert(value);
-        });
         
-        console.log(value)
-        const refer = firebase.database().ref('/users/'+ value);
-        refer
-            .set({
-                tipo: selectedOption,
-                valor: value,
-                email: email,
-                nome: name
-            })
-
-        let fc = refer.key;
-        alert(fc);
 
         Platform.OS === "ios" && createUser();
+       
         
     }
     

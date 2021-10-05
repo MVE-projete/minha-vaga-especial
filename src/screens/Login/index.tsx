@@ -24,8 +24,26 @@ export function Login({navigation}){
     const [password, setPassword] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [passwordVisibility, setPasswordVisible] = useState(true);
-    const [x, setX] = useState(2);
+    const [x, setX] = useState(1);
+    const [aux, setAux] = useState();
 let v = 1;
+
+    async function buscarDado(){
+
+        const ax = email.indexOf('@');
+        const teste = email.slice(0, ax);
+            
+
+        await firebase.database().ref('users/' + teste + '/tipo').on('value', (snapshot) => {
+            
+            console.log(snapshot.val());
+        
+        
+            
+          });
+
+    }
+
 
     async function logar(){
 
@@ -38,6 +56,7 @@ let v = 1;
                 await firebase.auth().signInWithEmailAndPassword(email, password)
                 .then( (value) => {
                     //alert('Seja bem vindo!');
+                    buscarDado();
                     navigation.navigate('Menu');
                   
                     
@@ -53,8 +72,6 @@ let v = 1;
             Alert.alert("A autenticação falhou. Por favor, digite sua senha!");
             }
             setIsModalVisible(false);
-
-
 
         
     }
