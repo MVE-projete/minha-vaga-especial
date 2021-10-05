@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Image, Text, Modal, Alert, Platform, SafeAreaView } from 'react-native'
 
+import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons'
 import { styles } from './styles';
 import { BotMenor, BotPassworVis } from '../../components/registerButton';
@@ -23,6 +24,8 @@ export function Login({navigation}){
     const [password, setPassword] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [passwordVisibility, setPasswordVisible] = useState(true);
+    const [x, setX] = useState(2);
+let v = 1;
 
     async function logar(){
 
@@ -35,7 +38,9 @@ export function Login({navigation}){
                 await firebase.auth().signInWithEmailAndPassword(email, password)
                 .then( (value) => {
                     //alert('Seja bem vindo!');
-                    navigation.navigate('Menu')
+                    navigation.navigate('Menu');
+                  
+                    
                 })
                 .catch( (error) => {
                     alert('Algo deu errado!');
@@ -57,8 +62,12 @@ export function Login({navigation}){
     Platform.OS === "ios" && logar();
 
     return(
-        <View style={{flex: 1, backgroundColor: 'white'}}>
-
+        <LinearGradient
+            style={{ flex: 1,}}
+            colors={['#931fff','#20f6fe']}
+            start={[1,0]}
+            end={[0,1]}
+            >
             {Platform.OS === "android" && (
         <Modal
         
@@ -73,17 +82,19 @@ export function Login({navigation}){
         </Modal>
       )}
 
-            <View style={styles.header}>
+       
+            
                 <Image
                     source={require('../../../assets/icon.png')}
                     style={styles.icon} />
-                <Text style={{fontFamily:'TitilliumWeb_600SemiBold', fontSize: 35 }}>
-                    Entrar
+                <Text style={{fontFamily:'TitilliumWeb_600SemiBold', fontSize: 35, color: 'white', marginLeft: 'auto', marginRight: 'auto', marginBottom: 19 }}>
+                    Login
                 </Text>
                 
-            </View>
-
             
+
+
+<View style={{backgroundColor: 'white', height: 700, borderTopEndRadius: 40, borderTopStartRadius: 40, borderBottomStartRadius: 40, borderBottomEndRadius: 40}}>
 
 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
 <MaterialIcons 
@@ -102,7 +113,7 @@ export function Login({navigation}){
             />
 </View>
 
-<View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'center'}}>
+    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'center'}}>
 
 <MaterialIcons 
         name='lock' 
@@ -131,10 +142,10 @@ export function Login({navigation}){
                 borderRadius: 8,
                 marginRight: 'auto',
                 marginLeft: 'auto',
-                marginTop: 20}}
+                marginTop: 40}}
         >
-        <Text style={{fontSize: 15, color: 'white'}}>
-                LOGIN
+        <Text style={{fontSize: 18, color: 'white'}}>
+                ENTRAR
         </Text>
         </RectButton>
 
@@ -144,9 +155,10 @@ export function Login({navigation}){
             title="Mostrar senha"
             onPress={()=>{setPasswordVisible(!passwordVisibility)}}/>
 
+</View>
 
             
-        </View>
+</LinearGradient>
 
     )
 }

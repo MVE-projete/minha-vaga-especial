@@ -9,10 +9,11 @@ export const styles =  StyleSheet.create({
     header: {
         alignItems: 'center',
         flexDirection: 'column',
-        marginTop: 100,
-        marginBottom: 30
+        height: 300,
+        width: 500
     },
     icon: {
+        marginTop: 40,
         marginLeft: 'auto',
         marginRight: 'auto',
         width: 200,

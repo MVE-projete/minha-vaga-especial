@@ -14,7 +14,8 @@ export const styles =  StyleSheet.create({
         marginLeft: 'auto',
         marginRight: 'auto',
         width: 200,
-        height: 200
+        height: 200,
+        marginTop: 70
         
     },
     input: {
@@ -25,7 +26,9 @@ export const styles =  StyleSheet.create({
         marginLeft: 20,
         marginRight: 20,
         paddingLeft: 10,
-        fontSize: 20
+        fontSize: 20,
+        width: 300,
+        borderBottomWidth: 0.5
     },
     text: {
         alignItems: 'center',
@@ -40,6 +43,8 @@ export const styles =  StyleSheet.create({
         fontSize: 40,
         marginLeft: 'auto',
         marginRight: 'auto',
-        fontWeight: 'bold'
+        marginBottom: 30,
+        color: 'white',
+        fontFamily: 'TitilliumWeb_600SemiBold'
     }
 })

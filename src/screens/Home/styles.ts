@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
         marginRight: 'auto',
         marginTop: 10,
         fontSize: 23,
-        fontFamily: 'TitilliumWeb_300Light'
+        fontFamily: 'TitilliumWeb_400Regular'
         
     },
     subtitledois:{

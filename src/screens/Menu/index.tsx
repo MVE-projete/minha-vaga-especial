@@ -47,20 +47,7 @@ export function Menu({navigation}) {
 
       </TouchableOpacity>
 	 
-	 <TouchableOpacity 
-        style={styles.button}>
-
-	    <AntDesign 
-        name="checkcircle" 
-        size={24} 
-        color="black" />
-
-      <Text 
-      style={styles.buttontext}>
-        Validar vaga
-      </Text>
-
-	 </TouchableOpacity>
+	 
 	
 	 <TouchableOpacity 
    style={styles.button}>
@@ -104,7 +91,7 @@ const styles = StyleSheet.create({
   	marginTop:80,
     justifyContent: 'center',
     alignItems: 'center',
-    margin:15,
+    margin:30,
     backgroundColor: '#4682B4',
     padding:40,
     borderWidth:5,

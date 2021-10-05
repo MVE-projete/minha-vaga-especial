@@ -6,10 +6,13 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BotBig, BotLogin } from '../../components/registerButton';
 import { Background } from '../../components/Background';
 import auth from '@react-native-firebase/auth';
+import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useFonts, TitilliumWeb_300Light, TitilliumWeb_700Bold,TitilliumWeb_600SemiBold } from '@expo-google-fonts/titillium-web';
 import firebase from '../../firebaseConnection';
 import * as LocalAuthentication from "expo-local-authentication";
+import { RectButton } from 'react-native-gesture-handler';
 //import DeviceInfo from 'react-native-device-info';
 
 
@@ -75,7 +78,9 @@ export function RegistrationScreen({navigation}){
         refer
             .set({
                 tipo: selectedOption,
-                valor: value
+                valor: value,
+                email: email,
+                nome: name
             })
 
         let fc = refer.key;
@@ -94,7 +99,7 @@ export function RegistrationScreen({navigation}){
     return(
         <View style={ styles.container }>
             
-{alert('Prezado Usuário(a): caso já possua conta no aplicativo MVE, pressione o botão "Entrar"')}
+
             {Platform.OS === "android" && (
         <Modal
         
@@ -117,6 +122,16 @@ export function RegistrationScreen({navigation}){
             <Text style={styles.title}>
                 Cadastre-se
             </Text>
+
+<View style={{backgroundColor: 'white', borderTopEndRadius: 40, borderTopStartRadius: 40,
+height: 450}}>
+
+<View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+<MaterialIcons 
+        name='person' 
+        size={26} 
+        color="grey"  />
+
             <TextInput
                 style={styles.input}
                 placeholder="Nome"
@@ -124,6 +139,13 @@ export function RegistrationScreen({navigation}){
                     setName(texto)
                 }}
                 />
+        </View>
+
+<View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+<MaterialIcons 
+        name='alternate-email' 
+        size={26} 
+        color="grey"  />
             <TextInput
                 style={styles.input}
                 placeholder="E-mail"
@@ -132,6 +154,15 @@ export function RegistrationScreen({navigation}){
                 }}
                 value={email}
                 />
+
+</View>
+
+<View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'center'}}>
+<MaterialIcons 
+        name='lock' 
+        size={26} 
+        color="grey"  />
+
             <TextInput
                 style={styles.input}
                 placeholder="Senha"
@@ -140,6 +171,8 @@ export function RegistrationScreen({navigation}){
                 }}
                 value={password}
                 />
+
+</View>
             
             <Picker 
                 selectedValue={selectedOption}
@@ -152,18 +185,58 @@ export function RegistrationScreen({navigation}){
                 <Picker.Item label="PCD" value="PCD"/>
             </Picker>
 
-            <BotBig
-            title="Registrar"
-            onPress={()=>{setIsModalVisible(true)}} />
+
+
+            <RectButton 
+            style={{borderColor: '#FF11FF',
+            borderWidth: 12,
+            marginRight: 'auto',
+            marginLeft: 'auto',
+            height: 40,
+            width: 200,
+            backgroundColor: '#6c68ff',
+            borderRadius: 8,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: 10}}
+            onPress={()=>{setIsModalVisible(true)}} 
+        >
+        <Text style={{fontSize: 17, color: 'white'}}>
+            REGISTRAR
+        </Text>
+        </RectButton>
+
+
+        
+      
             <View style={styles.loginlink}>
                 <Text style={styles.text}>
                     Já possui conta?
                 </Text>
-                <BotLogin 
-                onPress={ () => navigation.navigate('Login')}/>
+
+
+                <RectButton 
+            style={{
+            borderWidth: 0.5,
+            borderColor: 'black',
+            marginRight: 'auto',
+            marginLeft: 10,
+            height: 30,
+            width: 70,
+            borderRadius: 15,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: 1}}
+            onPress={ () => navigation.navigate('Login')} 
+        >
+            <Text style ={{fontSize: 15}}>
+            Entrar
+            </Text>
+        </RectButton>
+
             </View>
 
-            
+            </View>
     
         </View>
     );

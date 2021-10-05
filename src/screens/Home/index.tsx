@@ -6,7 +6,14 @@ import { styles } from './styles';
 import { BotBig, BotMenor } from '../../components/registerButton/';
 import firebase from '../../../src/firebaseConnection';
 import * as LocalAuthentication from "expo-local-authentication";
-import { useFonts, TitilliumWeb_300Light, TitilliumWeb_700Bold,TitilliumWeb_600SemiBold } from '@expo-google-fonts/titillium-web'
+import { useFonts, 
+    
+        TitilliumWeb_300Light, 
+        TitilliumWeb_700Bold,
+        TitilliumWeb_600SemiBold,
+        TitilliumWeb_400Regular,
+        TitilliumWeb_900Black} from '@expo-google-fonts/titillium-web';
+
 import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 
@@ -15,7 +22,9 @@ export function Home({navigation}){
     let [fontsLoaded] = useFonts({
         TitilliumWeb_300Light,
         TitilliumWeb_700Bold,
-        TitilliumWeb_600SemiBold
+        TitilliumWeb_600SemiBold,
+        TitilliumWeb_400Regular,
+        TitilliumWeb_900Black
     });
 
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -133,8 +142,9 @@ else{
 
 
         <RectButton 
-            onPress={ () => 
-                navigation.navigate('RegistrationScreen')}
+            onPress={ () => {
+                navigation.navigate('RegistrationScreen');
+                alert('Prezado Usuário(a): caso já possua conta no aplicativo MVE, pressione o botão "Entrar"')}}
             style={{
                 height: 30,
                 width: 400,
@@ -145,7 +155,7 @@ else{
                 marginLeft: 'auto',
                 marginTop: 10}}
         >
-        <Text style={{fontSize: 15,color: 'white', fontFamily: 'TitilliumWeb_300Light'}}>
+        <Text style={{fontSize: 15,color: 'white', fontFamily: 'TitilliumWeb_400Regular'}}>
             Não possui uma conta? Registre-se
         </Text>
         </RectButton>
