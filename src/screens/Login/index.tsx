@@ -30,8 +30,7 @@ let v = 1;
 
     async function buscarDado(){
 
-        const ax = email.indexOf('@');
-        const teste = email.slice(0, ax);
+        const teste = email.replace('.', '');
             
 
         await firebase.database().ref('users/' + teste + '/tipo').on('value', (snapshot) => {

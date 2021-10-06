@@ -22,7 +22,7 @@ export function RegistrationScreen({navigation}){
         const [email, setEmail] = useState('')
         const [password, setPassword] = useState('')
         const [name, setName] = useState('')
-        const [selectedOption, setSelectedOption] = useState();
+        const [selectedOption, setSelectedOption] = useState('0');
         const [value, setValue] = useState(0);
         const [valueaux, setValueaux] = useState(0);
         
@@ -33,10 +33,10 @@ export function RegistrationScreen({navigation}){
                 firebase.database().ref('usuarios/valor').on('value', (snapshot) => {
                     setValue(snapshot.val());
                 });
-                const ax = email.indexOf('@');
-                const teste = email.slice(0, ax);
-                console.log(value)
-                const refer = firebase.database().ref('/users/'+ teste);
+                
+                const emailcompleto = email.replace('.','');
+                
+                const refer = firebase.database().ref('/users/'+ emailcompleto);
                 refer
                     .set({
                         tipo: selectedOption,
@@ -193,6 +193,8 @@ height: 450}}>
                 
                 <Picker.Item label="Idoso" value="Idoso"/>
                 <Picker.Item label="PCD" value="PCD"/>
+                <Picker.Item label= "Selecionar" value='0'/>
+            
             </Picker>
 
 

@@ -12,7 +12,7 @@ export function Menu({navigation}) {
 
   async function logout(){
 
-    navigation.dispatch( //Serve para resetar a navegação (se a pessoa deslogou, ela não pode voltar no menu)
+    /*navigation.dispatch( //Serve para resetar a navegação (se a pessoa deslogou, ela não pode voltar no menu)
       CommonActions.reset({
         index: 1,
         routes: [
@@ -20,9 +20,21 @@ export function Menu({navigation}) {
         ]
       })
     );
+*/
+
 
     await firebase.auth().signOut();
-    alert("Deslogado");
+    //alert("Deslogado");
+
+    /*setTimeout(function(){ 
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Home' }],
+      });
+    }, 3000);*/
+
+    
+    
 
   }
 
