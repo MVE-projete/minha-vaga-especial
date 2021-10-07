@@ -12,7 +12,7 @@ import { View,
            } from 'react-native';
 
 import firebase from '../../firebaseConnection';
-import { BotBig, BotMenor } from '../../components/registerButton';
+//import { BotBig, BotMenor } from '../../components/registerButton';
 import Modal from 'react-native-modal';
 import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
@@ -20,58 +20,41 @@ import { StatusBar } from 'expo-status-bar';
 const { height, width } = Dimensions.get('window');
 let cor;
 
-export function MapaVaga({navigation}){
+export function MapaVaga2({navigation}){
   state = { //colocar tres estados do pino (tres cores) E FAZER A AUTENTICÇÃO e APK
     places: [
       {
         id: 0,
-        rua: 'Adélino Carneiro Pinto',
+        rua: 'ETEFMC',
         bairro: 'Centro',
         description: 'Estacionamento Unissul',
-        latitude: -22.25473293664138, 
-        longitude: -45.70466075394644,
-        codigo: 'A0',
+        latitude: -22.257638590895496,  
+        longitude: -45.703384120913576,
+        codigo: 'A3',
       },
       {
         id: 1,
-        rua: 'Adélino Carneiro Pinto',
+        rua: 'Lorêto García',
         bairro: 'Centro',
         description: 'Estacionamento Unissul',
-        latitude: -22.254762104945637, 
-        longitude: -45.7047271386185,
-        codigo: 'A1',
+        latitude: -22.25624494403089, 
+        longitude: -45.702733423060245,
+        codigo: 'A4',
       },
       {
-        id: 2, //Essa vaga funciona com o sensor
-        rua: 'A. José Cleto Duarte',
+        id: 2,
+        rua: 'João Bernardes',
         bairro: 'Centro',
         description: 'Estacionamento Unissul',
-        latitude: -22.254351255893518,
-        longitude:  -45.7053063842081,
-        codigo: 'A2', 
+        latitude: -22.257077288363266, 
+        longitude:  -45.70224044657601,
+        codigo: 'A5', 
       }
     ],
       
   };
 
-  let textobotao;
-  let textobotaoA0;
-  let textobotaoA1;
-  let textobotaoA2;
 
-  let corbotao;
-  let corbotaoA0;
-  let corbotaoA1;
-  let corbotaoA2;
-  let corA0;
-  let corA1;
-  const [validA0, setValidA0] = useState(0);
-  const [validA1, setValidA1] = useState(0);
-  const [sensA0, setSensA0] = useState();
-  const [sensA1, setSensA1] = useState();
-
-  const [userVal, setUserVal] = useState();
-  
   let color;
   let validar = 'Validar vaga';
   let color2 = '#6c68ff';
@@ -83,7 +66,7 @@ export function MapaVaga({navigation}){
   const [IsModalVisible, setIsModalVisible] = useState(false);
   const [vaga, setVaga] = useState('');
   let tipoVaga;
-  const email = firebase.auth().currentUser?.email?.replace('.','');
+
 
   function toggleModal(){
     setIsModalVisible(!IsModalVisible);
@@ -105,15 +88,6 @@ export function MapaVaga({navigation}){
       firebase.database().ref('verificacao/A2').on('value', (snapshot) => {
         setValidstate(snapshot.val());
       });
-      firebase.database().ref('verificacao/A0').on('value', (snapshot) => {
-        setValidA0(snapshot.val());
-      });
-      firebase.database().ref('verificacao/A1').on('value', (snapshot) => {
-        setValidA1(snapshot.val());
-      });
-      firebase.database().ref('users/' + email +'/validacao').on('value', (snapshot) => {
-        setUserVal(snapshot.val());
-      });
     }
 
 
@@ -122,87 +96,29 @@ export function MapaVaga({navigation}){
 
   function valid(){
 
-    if(vaga == 'A2')
-
+    
+    if(validstate == 0)
     {
-                    if(validstate == 0)
-                  {
-                    firebase.database().ref('verificacao').update({
-                      A2: 1,
-                    })
-                    alert("Validação feita com sucesso");
-                    setValidstate(1);
-                    setTimeout(function(){ toggleModal(); }, 1000);
-                    setUserVal('A2');
-                  }
-                  else
-                  {
-                    alert("Esta vaga está validada");
-                  }
-                  setAux(0);
-                      setTimeout(function() {
-                        setAux(1);
-                      }, 10);
-        }
-
-        else if (vaga == 'A0')
-        {
-
-
-          if(validA0 == 0)
-                  {
-                    firebase.database().ref('verificacao').update({
-                      A0: 1,
-                    })
-                    alert("Validação feita com sucesso");
-                    setUserVal('A0');
-                    setValidA0(1);
-                    setTimeout(function(){ toggleModal(); }, 1000);
-                    
-                  }
-                  else
-                  {
-                    alert("Esta vaga está validada");
-                  }
-                  setAux(0);
-                      setTimeout(function() {
-                        setAux(1);
-                      }, 10);
-              
-
-          
-          
-
-        }
-        else if(vaga == 'A1')
-        {
-
-
-          if(validA1 == 0)
-          {
-            firebase.database().ref('verificacao').update({
-              A1: 1,
-            })
-            alert("Validação feita com sucesso");
-            setUserVal('A1');
-            setValidA1(1);
-            setTimeout(function(){ toggleModal(); }, 1000);
-            
-          }
-          else
-          {
-            alert("Esta vaga está validada");
-          }
-          setAux(0);
-              setTimeout(function() {
-                setAux(1);
-              }, 10);
+      firebase.database().ref('verificacao').update({
+        valor: 1,
+      })
+      alert("Validação feita com sucesso");
+      setValidstate(1);
+      setTimeout(function(){ toggleModal(); }, 1000);
       
-
-
-        }
-
-
+    }
+    else
+    {
+      firebase.database().ref('verificacao').update({
+        valor: 0,
+      })
+      setValidstate(0);
+      setTimeout(function(){ toggleModal(); }, 1000);
+    }
+    setAux(0);
+        setTimeout(function() {
+          setAux(1);
+        }, 10);
   }
 
   useEffect(() => { //Função pra puxar o valor do sensor do firebase (armazenada na variável 'sensorv')
@@ -216,120 +132,41 @@ export function MapaVaga({navigation}){
           setAux(1);
         }, 10);
       
-      });
-      await firebase.database().ref('vagas/A0').on('value', (snapshot) => {
         
-        setSensA0(snapshot.val()); //cada vez que o valor do sensor mudar, ele dá um delay, tira o pino, e coloca de novo
-        setAux(0);
-        setTimeout(function() {
-          setAux(1);
-        }, 10);
-      
-      });
-      await firebase.database().ref('vagas/A1').on('value', (snapshot) => {
         
-        setSensA1(snapshot.val());  //cada vez que o valor do sensor mudar, ele dá um delay, tira o pino, e coloca de novo
-        setAux(0);
-        setTimeout(function() {
-          setAux(1);
-        }, 10);
-      
       });
     }
 
     dados();
   }, []);
 
-
-  if (sensA1 == 1 && validA1 == 1)
-  {
-    corA1 = 'red';
-    corbotaoA1 = '#DE7171';
-    textobotaoA1 = 'Esta vaga está validada';
-  }
-  else if (sensA1 == 0 && validA1 == 0)
-  {
-    corA1 = 'green';
-    corbotaoA1 = '#6c68ff';
-    textobotaoA1 = 'Validar vaga';
-  }
-  else if(sensA1 == 1 && validA1 == 0)
-  {
-    corA1 = 'yellow';
-    corbotaoA1 = '#6c68ff';
-    textobotaoA1 = 'Validar vaga';
-  }
-  else if(sensA1 == 0 && validA1 == 1)
-  {
-    corA1 = 'orange';
-    corbotaoA1 = '#DE7171';
-    textobotaoA1 = 'Esta vaga está validada';
-  }
-
-
-
-
-
-
-  if (sensA0 == 1 && validA0 == 1)
-  {
-    corA0 = 'red';
-    corbotaoA0 = '#DE7171';
-    textobotaoA0 = 'Esta vaga está validada';
-  }
-  else if (sensA0 == 0 && validA0 == 0)
-  {
-    corA0 = 'green';
-    corbotaoA0 = '#6c68ff';
-    textobotaoA0 = 'Validar vaga';
-  }
-  else if(sensA0 == 1 && validA0 == 0)
-  {
-    corA0 = 'yellow';
-    corbotaoA0 = '#6c68ff';
-    textobotaoA0 = 'Validar vaga';
-  }
-  else if(sensA0 == 0 && validA0 == 1)
-  {
-    corA0 = 'orange';
-    corbotaoA0 = '#DE7171';
-    textobotaoA0 = 'Esta vaga está validada';
-  }
-
-
-
-
-
   if (sensorv == 1 && validstate == 1)
   {
     color = 'red';
-    corbotaoA2 = '#DE7171';
-    textobotaoA2 = 'Esta vaga está validada';
+    color2 = '#DE7171';
+    validar = 'Você já validou uma vaga';
   }
   else if (sensorv == 0 && validstate == 0)
   {
     color = 'green';
-    corbotaoA2 = '#6c68ff';
-    textobotaoA2 = 'Validar vaga';
+    color2 = '#6c68ff';
+    validar = 'Validar vaga';
   }
   else if(sensorv == 1 && validstate == 0)
   {
     color = 'yellow';
-    corbotaoA2 = '#6c68ff';
-    textobotaoA2 = 'Validar vaga';
+    color2 = '#6c68ff';
+    validar = 'Validar vaga';
   }
   else if(sensorv == 0 && validstate == 1)
   {
     color = 'orange';
-    corbotaoA2 = '#DE7171';
-    textobotaoA2 = 'Esta vaga está validada';
+    color2 = '#DE7171';
+    validar = 'Você já validou uma vaga';
   }
 
-
   
-  cor = [corA0, corA1, color];
-  corbotao = [corbotaoA0, corbotaoA1, corbotaoA2];
-  textobotao = [textobotaoA0, textobotaoA1, textobotaoA2];
+  cor = ['red', 'red', color];
 
   
 
@@ -379,9 +216,7 @@ export function MapaVaga({navigation}){
 
           <View style={{marginLeft: 'auto', marginRight: 10}}>
           <Pressable style={{backgroundColor: '#6c68ff', borderRadius: 4, height: 25, width: 80}}
-            onPress={()=> {if(userVal == '0')
-            {valid()}
-            else(alert("Você já validou uma vaga. Para cancelar a validação aperte em"))}}>
+            onPress={valid}>
               <Text style={{fontSize: 17, color: 'white', marginLeft: 'auto', marginRight: 'auto'}}> Validar! </Text>
 
           </Pressable>
@@ -409,8 +244,8 @@ export function MapaVaga({navigation}){
     <MapView
         ref={map => this.mapView = map}
           initialRegion={{
-          latitude: -22.25473293664138, 
-          longitude: -45.70466075394644,
+          latitude: -22.257262253094318,  
+          longitude: -45.7027400849008 ,
           latitudeDelta: 0.0030733, //zoom
           longitudeDelta: 0.0014033,
         }}
@@ -504,17 +339,16 @@ export function MapaVaga({navigation}){
             marginLeft: 'auto',
             height: 40,
             width: 300,
-            backgroundColor: corbotao[place.id],
+            backgroundColor: color2,
             borderRadius: 7,
             alignItems: 'center',
             justifyContent: 'center',
             marginTop: 10}}
-            onPress={()=> {
-                          setVaga(place.codigo);
-                          setIsModalVisible(!IsModalVisible);}}
+            onPress={()=> {setIsModalVisible(!IsModalVisible);
+                          setVaga(place.codigo)}}
         >
         <Text style={{fontSize: 20, color: 'white'}}>
-          {textobotao[place.id]}
+          {validar}
         </Text>
         </RectButton>
 

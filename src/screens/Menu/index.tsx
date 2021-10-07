@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View,TouchableOpacity, SafeAreaView, } from 'react-native';
 
 import { AntDesign, FontAwesome5, Ionicons} from '@expo/vector-icons';
@@ -9,7 +9,13 @@ import { BotMenor } from '../../components/registerButton';
 import firebase from '../../firebaseConnection'
 
 export function Menu({navigation}) {
+let tipoVaga;
+  const email = firebase.auth().currentUser?.email?.replace('.','');
+  firebase.database().ref('users/' + email + '/tipo').on('value', (snapshot) => {
+    tipoVaga = snapshot.val();
+  });
 
+  
   async function logout(){
 
     /*navigation.dispatch( //Serve para resetar a navegação (se a pessoa deslogou, ela não pode voltar no menu)
@@ -23,15 +29,15 @@ export function Menu({navigation}) {
 */
 
 
-    await firebase.auth().signOut();
-    //alert("Deslogado");
+    await firebase.auth().signOut(); //Ele só volta automatico pra tela de login no expo
+    alert("Deslogado");
 
-    /*setTimeout(function(){ 
+    setTimeout(function(){ 
       navigation.reset({
         index: 0,
         routes: [{ name: 'Home' }],
       });
-    }, 3000);*/
+    }, 3000);
 
     
     
@@ -45,7 +51,11 @@ export function Menu({navigation}) {
       <SafeAreaView>
     
      <TouchableOpacity style={styles.button}
-     onPress={() => navigation.navigate('MapaVaga')}>
+     onPress={() => {
+        if(tipoVaga == 'Idoso')
+        {navigation.navigate('MapaVaga2')}
+        else if(tipoVaga == 'PCD')
+        {navigation.navigate('MapaVaga')}}}>
        
 
 	  <FontAwesome5 

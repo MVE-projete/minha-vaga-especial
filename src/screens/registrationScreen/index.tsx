@@ -42,7 +42,8 @@ export function RegistrationScreen({navigation}){
                         tipo: selectedOption,
                         valor: value,
                         email: email,
-                        nome: name
+                        nome: name,
+                        validacao: 0
                     })
                 const reset = firebase.database().ref('usuarios');
                 reset.set({
