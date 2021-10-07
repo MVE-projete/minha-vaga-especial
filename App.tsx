@@ -7,6 +7,7 @@ import { Home } from './src/screens/Home/';
 import { Login } from './src/screens/Login';
 import { RegistrationScreen }  from './src/screens/registrationScreen/';
 import { MapaVaga } from './src/screens/MapaVaga';
+import { MapaVaga2 } from './src/screens/MapaVaga2';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Touchid } from './src/screens/Touchid';
@@ -56,6 +57,10 @@ export default function App() {
             <Screen 
                 name="Touchid"
                 component={Touchid}
+            />
+            <Screen 
+                name="MapaVaga2"
+                component={MapaVaga2}
             />
         </Navigator>
     
