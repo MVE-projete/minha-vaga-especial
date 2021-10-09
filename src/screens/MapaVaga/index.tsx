@@ -65,6 +65,10 @@ export function MapaVaga({navigation}){
   let corbotaoA2;
   let corA0;
   let corA1;
+  //const scrolled;
+  //const place;
+  //const place2;
+  
   const [validA0, setValidA0] = useState(0);
   const [validA1, setValidA1] = useState(0);
   const [sensA0, setSensA0] = useState();
@@ -82,6 +86,7 @@ export function MapaVaga({navigation}){
   const [validstate, setValidstate] = useState();
   const [IsModalVisible, setIsModalVisible] = useState(false);
   const [IsModalVisible2, setIsModalVisible2] = useState(false);
+  const [IsModalVisible3, setIsModalVisible3] = useState(true);
   const [vaga, setVaga] = useState('');
   let tipoVaga;
   const email = firebase.auth().currentUser?.email?.replace('.','');
@@ -94,6 +99,11 @@ export function MapaVaga({navigation}){
   function toggleModal2(){
     setIsModalVisible2(!IsModalVisible2);
     console.log(IsModalVisible2);
+  };
+
+  function toggleModal3(){
+    setIsModalVisible3(!IsModalVisible3);
+    console.log(IsModalVisible3);
   };
 
 
@@ -290,7 +300,7 @@ setTimeout(function() {
         setAux(0);
         setTimeout(function() {
           setAux(1);
-        }, 10);
+        }, 5);
       
       });
       await firebase.database().ref('vagas/A0').on('value', (snapshot) => {
@@ -299,7 +309,7 @@ setTimeout(function() {
         setAux(0);
         setTimeout(function() {
           setAux(1);
-        }, 10);
+        }, 5);
       
       });
       await firebase.database().ref('vagas/A1').on('value', (snapshot) => {
@@ -308,7 +318,7 @@ setTimeout(function() {
         setAux(0);
         setTimeout(function() {
           setAux(1);
-        }, 10);
+        }, 5);
       
       });
     }
@@ -424,6 +434,7 @@ else if(userVal == 'A2')
 
   const { latitude, longitude } = this.state.places[0];
 
+  
   return (
     <View
       style={styles.container}>
@@ -508,27 +519,28 @@ else if(userVal == 'A2')
       hidden={true} />
         <Modal
         isVisible={IsModalVisible2}
+        
           
         >
-          <View style ={{backgroundColor: 'white', borderRadius: 12, height: 170, width: 250, marginRight:'auto', marginLeft:'auto'}}>
+          <View style ={{backgroundColor: 'white', borderRadius: 12, height: 170, width: 300, marginRight:'auto', marginLeft:'auto'}}>
           
           <Text style={{
             marginTop: 10,
             marginBottom: 10,
             fontSize: 22,
-            marginLeft: 'auto',
-            marginRight: 'auto',
+            marginLeft: 10,
+            marginRight: 10,
             justifyContent: 'center'
           }}>
-          Deseja desvalidar a vaga
+          Deseja cancelar a validação da vaga
         </Text> 
 
         <Text style={{
             marginTop: 2,
             marginBottom: 10,
             fontSize: 22,
-            marginLeft: 'auto',
-            marginRight: 'auto',
+            marginLeft: 10,
+            marginRight: 10,
             justifyContent: 'center',
             fontWeight: 'bold'
           }}>
@@ -546,7 +558,7 @@ else if(userVal == 'A2')
               unvalid()}
             }>
 
-              <Text style={{fontSize: 17, color: 'white', marginLeft: 'auto', marginRight: 'auto'}}> Validar! </Text>
+              <Text style={{fontSize: 17, color: 'white', marginLeft: 'auto', marginRight: 'auto'}}> Sim! </Text>
 
           </Pressable>
           </View>
@@ -572,6 +584,71 @@ else if(userVal == 'A2')
       )}
 
 
+
+
+
+
+
+
+
+
+
+
+
+{Platform.OS === "android" && (
+  <View>
+    <StatusBar
+      hidden={true} />
+        <Modal
+        isVisible={IsModalVisible3}
+        
+          
+        >
+          <View style ={{backgroundColor: 'white', borderRadius: 12, height: 170, width: 250, marginRight:'auto', marginLeft:'auto'}}>
+          
+          <Text style={{
+            marginTop: 10,
+            marginBottom: 10,
+            fontSize: 22,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            justifyContent: 'center'
+          }}>
+          Valide sua vaga!
+        </Text> 
+
+         
+        <View style={{height: 30}}/>
+          
+        <View style={{flexDirection: 'row'}}>
+
+          <View style={{marginLeft: 'auto', marginRight: 10}}>
+          <Pressable style={{backgroundColor: '#6c68ff', borderRadius: 4, height: 25, width: 80}}>
+
+              <Text style={{fontSize: 17, color: 'white', marginLeft: 'auto', marginRight: 'auto'}}> Sim! </Text>
+
+          </Pressable>
+          </View>
+
+          <View style={{marginRight: 'auto', marginLeft: 10}}>
+          <Pressable style={{borderWidth: 1, borderRadius: 4, borderColor: '#6c68ff', height: 25, width:80}}
+            onPress={toggleModal3}>
+              <Text style={{fontSize: 17, marginRight: 'auto', marginLeft: 'auto'}}>
+                Ok
+              </Text>
+
+          </Pressable>
+          </View>
+            
+          </View>
+         </View>
+        </Modal>
+
+
+{/**/}
+
+      </View>
+      )}
 
 
 
@@ -614,6 +691,7 @@ else if(userVal == 'A2')
               
         />
     ))
+    
     :
     (
           <>
@@ -642,7 +720,7 @@ else if(userVal == 'A2')
       const place2 = Math.round(place);
 
       const { latitude, longitude, mark } = this.state.places[place2];
-
+        
       this.mapView.animateToCoordinate({
         latitude,
         longitude,
@@ -715,10 +793,14 @@ else if(userVal == 'A2')
             justifyContent: 'center',
             marginTop: 10}}
             onPress={()=> {
+              if(userVal != '0')
+              {
+                setVaga(userVal)
+              }
                           setIsModalVisible2(!IsModalVisible2);}}
         >
         <Text style={{fontSize: 20, color: 'white'}}>
-          Desvalidar vaga {place.codigo}
+          Cancelar validação desta vaga
         </Text>
         </RectButton>
 
