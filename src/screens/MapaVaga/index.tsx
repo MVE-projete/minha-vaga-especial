@@ -81,6 +81,7 @@ export function MapaVaga({navigation}){
   const [validation, setValidation] = useState();
   const [validstate, setValidstate] = useState();
   const [IsModalVisible, setIsModalVisible] = useState(false);
+  const [IsModalVisible2, setIsModalVisible2] = useState(false);
   const [vaga, setVaga] = useState('');
   let tipoVaga;
   const email = firebase.auth().currentUser?.email?.replace('.','');
@@ -88,6 +89,11 @@ export function MapaVaga({navigation}){
   function toggleModal(){
     setIsModalVisible(!IsModalVisible);
     console.log(IsModalVisible);
+  };
+
+  function toggleModal2(){
+    setIsModalVisible2(!IsModalVisible2);
+    console.log(IsModalVisible2);
   };
 
 
@@ -120,6 +126,67 @@ export function MapaVaga({navigation}){
 }
 
 
+function unvalid(){
+
+  if(vaga == 'A2')
+
+  {firebase.database().ref('verificacao').update({
+    A2: 0,
+  })
+  firebase.database().ref('users/' + email ).update({
+    validacao: 0,
+  })
+setUserVal('0')
+setVaga('')
+setValidstate(0)
+setAux(0);
+setTimeout(function() {
+  setAux(1);
+}, 10);}
+  
+  
+
+
+  else if(vaga == 'A0')
+
+  {firebase.database().ref('verificacao').update({
+    A0: 0,
+  })
+  firebase.database().ref('users/' + email ).update({
+    validacao: 0,
+  })
+  setUserVal('0')
+  setVaga('')
+  setValidA0(0)
+  setAux(0);
+  setTimeout(function() {
+    setAux(1);
+  }, 10);
+  
+  
+}
+
+  else if(vaga == 'A1')
+  {firebase.database().ref('verificacao').update({
+    A1: 0,
+  })
+  firebase.database().ref('users/' + email ).update({
+    validacao: 0,
+  })
+  setUserVal('0')
+  setVaga('')
+  setValidA1(0)
+  setAux(0);
+  setTimeout(function() {
+    setAux(1);
+  }, 10);}
+
+}
+
+
+
+
+
   function valid(){
 
     if(vaga == 'A2')
@@ -129,6 +196,9 @@ export function MapaVaga({navigation}){
                   {
                     firebase.database().ref('verificacao').update({
                       A2: 1,
+                    })
+                    firebase.database().ref('users/' + email ).update({
+                      validacao: 'A2',
                     })
                     alert("Validação feita com sucesso");
                     setValidstate(1);
@@ -153,6 +223,9 @@ export function MapaVaga({navigation}){
                   {
                     firebase.database().ref('verificacao').update({
                       A0: 1,
+                    })
+                    firebase.database().ref('users/' + email ).update({
+                      validacao: 'A0',
                     })
                     alert("Validação feita com sucesso");
                     setUserVal('A0');
@@ -182,6 +255,9 @@ export function MapaVaga({navigation}){
           {
             firebase.database().ref('verificacao').update({
               A1: 1,
+            })
+            firebase.database().ref('users/' + email ).update({
+              validacao: 'A1',
             })
             alert("Validação feita com sucesso");
             setUserVal('A1');
@@ -325,6 +401,19 @@ export function MapaVaga({navigation}){
     textobotaoA2 = 'Esta vaga está validada';
   }
 
+  //Código novo
+if(userVal == 'A0')
+  {
+    textobotaoA0 = 'Você validou já esta vaga';
+  }
+else if(userVal == 'A1')
+  {
+    textobotaoA1 = 'Você validou já esta vaga';
+  }
+else if(userVal == 'A2')
+  {
+    textobotaoA2 = 'Você já validou esta vaga';
+  }
 
   
   cor = [corA0, corA1, color];
@@ -402,8 +491,99 @@ export function MapaVaga({navigation}){
         </Modal>
 
 
+{/*setVaga('');*/}
+
       </View>
       )}
+
+
+
+
+
+
+
+{Platform.OS === "android" && (
+  <View>
+    <StatusBar
+      hidden={true} />
+        <Modal
+        isVisible={IsModalVisible2}
+          
+        >
+          <View style ={{backgroundColor: 'white', borderRadius: 12, height: 170, width: 250, marginRight:'auto', marginLeft:'auto'}}>
+          
+          <Text style={{
+            marginTop: 10,
+            marginBottom: 10,
+            fontSize: 22,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            justifyContent: 'center'
+          }}>
+          Deseja desvalidar a vaga
+        </Text> 
+
+        <Text style={{
+            marginTop: 2,
+            marginBottom: 10,
+            fontSize: 22,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            justifyContent: 'center',
+            fontWeight: 'bold'
+          }}>
+        {vaga}?
+
+        </Text>
+         
+        <View style={{height: 30}}/>
+          
+        <View style={{flexDirection: 'row'}}>
+
+          <View style={{marginLeft: 'auto', marginRight: 10}}>
+          <Pressable style={{backgroundColor: '#6c68ff', borderRadius: 4, height: 25, width: 80}}
+            onPress={()=> {
+              unvalid()}
+            }>
+
+              <Text style={{fontSize: 17, color: 'white', marginLeft: 'auto', marginRight: 'auto'}}> Validar! </Text>
+
+          </Pressable>
+          </View>
+
+          <View style={{marginRight: 'auto', marginLeft: 10}}>
+          <Pressable style={{borderWidth: 1, borderRadius: 4, borderColor: '#6c68ff', height: 25, width:80}}
+            onPress={toggleModal2}>
+              <Text style={{fontSize: 17, marginRight: 'auto', marginLeft: 'auto'}}>
+                Voltar
+              </Text>
+
+          </Pressable>
+          </View>
+            
+          </View>
+         </View>
+        </Modal>
+
+
+{/**/}
+
+      </View>
+      )}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <MapView
@@ -519,7 +699,34 @@ export function MapaVaga({navigation}){
         </RectButton>
 
 
+{userVal == place.codigo ?
+  (
 
+<RectButton 
+            style={{borderColor: '#FF11FF',
+            borderWidth: 12,
+            marginRight: 'auto',
+            marginLeft: 'auto',
+            height: 40,
+            width: 300,
+            backgroundColor: '#6c68ff',
+            borderRadius: 7,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: 10}}
+            onPress={()=> {
+                          setIsModalVisible2(!IsModalVisible2);}}
+        >
+        <Text style={{fontSize: 20, color: 'white'}}>
+          Desvalidar vaga {place.codigo}
+        </Text>
+        </RectButton>
+
+
+
+  )
+:
+(<></>)}
     
 
         </View>
