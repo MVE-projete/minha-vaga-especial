@@ -147,7 +147,6 @@ function unvalid(){
     validacao: 0,
   })
 setUserVal('0')
-setVaga('')
 setValidstate(0)
 setAux(0);
 setTimeout(function() {
@@ -166,7 +165,6 @@ setTimeout(function() {
     validacao: 0,
   })
   setUserVal('0')
-  setVaga('')
   setValidA0(0)
   setAux(0);
   setTimeout(function() {
@@ -184,7 +182,6 @@ setTimeout(function() {
     validacao: 0,
   })
   setUserVal('0')
-  setVaga('')
   setValidA1(0)
   setAux(0);
   setTimeout(function() {
@@ -522,7 +519,7 @@ else if(userVal == 'A2')
         
           
         >
-          <View style ={{backgroundColor: 'white', borderRadius: 12, height: 170, width: 300, marginRight:'auto', marginLeft:'auto'}}>
+          <View style ={{backgroundColor: 'white', borderRadius: 12, height: 200, width: 300, marginRight:'auto', marginLeft:'auto'}}>
           
           <Text style={{
             marginTop: 10,
@@ -555,7 +552,12 @@ else if(userVal == 'A2')
           <View style={{marginLeft: 'auto', marginRight: 10}}>
           <Pressable style={{backgroundColor: '#6c68ff', borderRadius: 4, height: 25, width: 80}}
             onPress={()=> {
-              unvalid()}
+              unvalid()
+              alert("Validação cancelada");
+              setTimeout(function(){ toggleModal2();
+                }, 1000);
+                setTimeout(function(){ setVaga('');},2000);
+            }
             }>
 
               <Text style={{fontSize: 17, color: 'white', marginLeft: 'auto', marginRight: 'auto'}}> Sim! </Text>
