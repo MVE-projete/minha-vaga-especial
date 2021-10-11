@@ -16,6 +16,7 @@ import { BotBig, BotMenor } from '../../components/registerButton';
 import Modal from 'react-native-modal';
 import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
+import AppLoading from 'expo-app-loading';
 
 const { height, width } = Dimensions.get('window');
 let cor;
@@ -65,9 +66,7 @@ export function MapaVaga({navigation}){
   let corbotaoA2;
   let corA0;
   let corA1;
-  //const scrolled;
-  //const place;
-  //const place2;
+
   
   const [validA0, setValidA0] = useState(0);
   const [validA1, setValidA1] = useState(0);
@@ -80,7 +79,10 @@ export function MapaVaga({navigation}){
   let validar = 'Validar vaga';
   let color2 = '#6c68ff';
 
-  const [aux, setAux] = useState(1);
+  const [aux0, setAux0] = useState(1);
+  const [aux1, setAux1] = useState(1);
+  const [aux2, setAux2] = useState(1);
+
   const [sensorv, setSensorv] = useState();
   const [validation, setValidation] = useState();
   const [validstate, setValidstate] = useState();
@@ -90,6 +92,8 @@ export function MapaVaga({navigation}){
   const [vaga, setVaga] = useState('');
   let tipoVaga;
   const email = firebase.auth().currentUser?.email?.replace('.','');
+
+  
 
   function toggleModal(){
     setIsModalVisible(!IsModalVisible);
@@ -148,9 +152,9 @@ function unvalid(){
   })
 setUserVal('0')
 setValidstate(0)
-setAux(0);
+setAux2(0);
 setTimeout(function() {
-  setAux(1);
+  setAux2(1);
 }, 10);}
   
   
@@ -166,9 +170,9 @@ setTimeout(function() {
   })
   setUserVal('0')
   setValidA0(0)
-  setAux(0);
+  setAux0(0);
   setTimeout(function() {
-    setAux(1);
+    setAux0(1);
   }, 10);
   
   
@@ -183,9 +187,9 @@ setTimeout(function() {
   })
   setUserVal('0')
   setValidA1(0)
-  setAux(0);
+  setAux1(0);
   setTimeout(function() {
-    setAux(1);
+    setAux1(1);
   }, 10);}
 
 }
@@ -216,9 +220,9 @@ setTimeout(function() {
                   {
                     alert("Esta vaga está validada");
                   }
-                  setAux(0);
+                  setAux2(0);
                       setTimeout(function() {
-                        setAux(1);
+                        setAux2(1);
                       }, 10);
         }
 
@@ -244,9 +248,9 @@ setTimeout(function() {
                   {
                     alert("Esta vaga está validada");
                   }
-                  setAux(0);
+                  setAux0(0);
                       setTimeout(function() {
-                        setAux(1);
+                        setAux0(1);
                       }, 10);
               
 
@@ -276,9 +280,9 @@ setTimeout(function() {
           {
             alert("Esta vaga está validada");
           }
-          setAux(0);
+          setAux1(0);
               setTimeout(function() {
-                setAux(1);
+                setAux1(1);
               }, 10);
       
 
@@ -294,27 +298,27 @@ setTimeout(function() {
       await firebase.database().ref('sensor').on('value', (snapshot) => {
         
         setSensorv(snapshot.val()); //cada vez que o valor do sensor mudar, ele dá um delay, tira o pino, e coloca de novo
-        setAux(0);
+        setAux2(0);
         setTimeout(function() {
-          setAux(1);
+          setAux2(1);
         }, 5);
       
       });
       await firebase.database().ref('vagas/A0').on('value', (snapshot) => {
         
         setSensA0(snapshot.val()); //cada vez que o valor do sensor mudar, ele dá um delay, tira o pino, e coloca de novo
-        setAux(0);
+        setAux0(0);
         setTimeout(function() {
-          setAux(1);
+          setAux0(1);
         }, 5);
       
       });
       await firebase.database().ref('vagas/A1').on('value', (snapshot) => {
         
         setSensA1(snapshot.val());  //cada vez que o valor do sensor mudar, ele dá um delay, tira o pino, e coloca de novo
-        setAux(0);
+        setAux1(0);
         setTimeout(function() {
-          setAux(1);
+          setAux1(1);
         }, 5);
       
       });
@@ -430,257 +434,280 @@ else if(userVal == 'A2')
   
 
   const { latitude, longitude } = this.state.places[0];
-
   
-  return (
-    <View
-      style={styles.container}>
-
-{Platform.OS === "android" && (
-  <View>
-    <StatusBar
-      hidden={true} />
-        <Modal
-        isVisible={IsModalVisible}
-          
-        >
-          <View style ={{backgroundColor: 'white', borderRadius: 12, height: 170, width: 250, marginRight:'auto', marginLeft:'auto'}}>
-          
-          <Text style={{
-            marginTop: 10,
-            marginBottom: 10,
-            fontSize: 22,
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            justifyContent: 'center'
-          }}>
-          Deseja validar a vaga 
-        </Text> 
-
-        <Text style={{
-            marginTop: 2,
-            marginBottom: 10,
-            fontSize: 22,
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            justifyContent: 'center',
-            fontWeight: 'bold'
-          }}>
-        {vaga}?
-
-        </Text>
-         
-        <View style={{height: 30}}/>
-          
-        <View style={{flexDirection: 'row'}}>
-
-          <View style={{marginLeft: 'auto', marginRight: 10}}>
-          <Pressable style={{backgroundColor: '#6c68ff', borderRadius: 4, height: 25, width: 80}}
-            onPress={()=> {if(userVal == '0')
-            {valid()}
-            else(alert("Você já validou uma vaga. Para cancelar a validação aperte em"))}}>
-              <Text style={{fontSize: 17, color: 'white', marginLeft: 'auto', marginRight: 'auto'}}> Validar! </Text>
-
-          </Pressable>
-          </View>
-
-          <View style={{marginRight: 'auto', marginLeft: 10}}>
-          <Pressable style={{borderWidth: 1, borderRadius: 4, borderColor: '#6c68ff', height: 25, width:80}}
-            onPress={toggleModal}>
-              <Text style={{fontSize: 17, marginRight: 'auto', marginLeft: 'auto'}}>
-                Voltar
-              </Text>
-
-          </Pressable>
-          </View>
-            
-          </View>
-         </View>
-        </Modal>
-
-
-{/*setVaga('');*/}
-
-      </View>
-      )}
-
-
-
-
-
-
-
-{Platform.OS === "android" && (
-  <View>
-    <StatusBar
-      hidden={true} />
-        <Modal
-        isVisible={IsModalVisible2}
+    return (
+    
+      <View
+        style={styles.container}>
+  
         
-          
-        >
-          <View style ={{backgroundColor: 'white', borderRadius: 12, height: 200, width: 300, marginRight:'auto', marginLeft:'auto'}}>
-          
-          <Text style={{
-            marginTop: 10,
-            marginBottom: 10,
-            fontSize: 22,
-            marginLeft: 10,
-            marginRight: 10,
-            justifyContent: 'center'
-          }}>
-          Deseja cancelar a validação da vaga
-        </Text> 
-
-        <Text style={{
-            marginTop: 2,
-            marginBottom: 10,
-            fontSize: 22,
-            marginLeft: 10,
-            marginRight: 10,
-            justifyContent: 'center',
-            fontWeight: 'bold'
-          }}>
-        {vaga}?
-
-        </Text>
-         
-        <View style={{height: 30}}/>
-          
-        <View style={{flexDirection: 'row'}}>
-
-          <View style={{marginLeft: 'auto', marginRight: 10}}>
-          <Pressable style={{backgroundColor: '#6c68ff', borderRadius: 4, height: 25, width: 80}}
-            onPress={()=> {
-              unvalid()
-              alert("Validação cancelada");
-              setTimeout(function(){ toggleModal2();
-                }, 1000);
-                setTimeout(function(){ setVaga('');},2000);
-            }
-            }>
-
-              <Text style={{fontSize: 17, color: 'white', marginLeft: 'auto', marginRight: 'auto'}}> Sim! </Text>
-
-          </Pressable>
-          </View>
-
-          <View style={{marginRight: 'auto', marginLeft: 10}}>
-          <Pressable style={{borderWidth: 1, borderRadius: 4, borderColor: '#6c68ff', height: 25, width:80}}
-            onPress={toggleModal2}>
-              <Text style={{fontSize: 17, marginRight: 'auto', marginLeft: 'auto'}}>
-                Voltar
-              </Text>
-
-          </Pressable>
-          </View>
+  {Platform.OS === "android" && (
+    <View>
+      <StatusBar
+        hidden={true} />
+          <Modal
+          isVisible={IsModalVisible}
             
-          </View>
-         </View>
-        </Modal>
-
-
-{/**/}
-
-      </View>
-      )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-{Platform.OS === "android" && (
-  <View>
-    <StatusBar
-      hidden={true} />
-        <Modal
-        isVisible={IsModalVisible3}
-        
-          
-        >
-          <View style ={{backgroundColor: 'white', borderRadius: 12, height: 170, width: 250, marginRight:'auto', marginLeft:'auto'}}>
-          
-          <Text style={{
-            marginTop: 10,
-            marginBottom: 10,
-            fontSize: 22,
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            justifyContent: 'center'
-          }}>
-          Valide sua vaga!
-        </Text> 
-
-         
-        <View style={{height: 30}}/>
-          
-        <View style={{flexDirection: 'row'}}>
-
-          <View style={{marginLeft: 'auto', marginRight: 10}}>
-          <Pressable style={{backgroundColor: '#6c68ff', borderRadius: 4, height: 25, width: 80}}>
-
-              <Text style={{fontSize: 17, color: 'white', marginLeft: 'auto', marginRight: 'auto'}}> Sim! </Text>
-
-          </Pressable>
-          </View>
-
-          <View style={{marginRight: 'auto', marginLeft: 10}}>
-          <Pressable style={{borderWidth: 1, borderRadius: 4, borderColor: '#6c68ff', height: 25, width:80}}
-            onPress={toggleModal3}>
-              <Text style={{fontSize: 17, marginRight: 'auto', marginLeft: 'auto'}}>
-                Ok
-              </Text>
-
-          </Pressable>
-          </View>
+          >
+            <View style ={{backgroundColor: 'white', borderRadius: 12, height: 170, width: 250, marginRight:'auto', marginLeft:'auto'}}>
             
-          </View>
-         </View>
-        </Modal>
-
-
-{/**/}
-
-      </View>
-      )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <MapView
-        ref={map => this.mapView = map}
-          initialRegion={{
-          latitude: -22.25473293664138, 
-          longitude: -45.70466075394644,
-          latitudeDelta: 0.0030733, //zoom
-          longitudeDelta: 0.0014033,
-        }}
-        style={styles.MapView}
-        rotateEnabled={false}
-    >
-
-    {aux == 1 ? 
-      //Em todos os dois casos ele coloca o pincolor com o valor de 'color'. E o color varia conforme varia o sensorv (linha 27)
-      this.state.places.map(place => (
+            <Text style={{
+              marginTop: 10,
+              marginBottom: 10,
+              fontSize: 22,
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              justifyContent: 'center'
+            }}>
+            Deseja validar a vaga 
+          </Text> 
+  
+          <Text style={{
+              marginTop: 2,
+              marginBottom: 10,
+              fontSize: 22,
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              justifyContent: 'center',
+              fontWeight: 'bold'
+            }}>
+          {vaga}?
+  
+          </Text>
+           
+          <View style={{height: 30}}/>
+            
+          <View style={{flexDirection: 'row'}}>
+  
+            <View style={{marginLeft: 'auto', marginRight: 10}}>
+            <Pressable style={{backgroundColor: '#6c68ff', borderRadius: 4, height: 25, width: 80}}
+              onPress={()=> {if(userVal == '0')
+              {valid()}
+              else(alert("Você já validou uma vaga. Para cancelar a validação aperte em"))}}>
+                <Text style={{fontSize: 17, color: 'white', marginLeft: 'auto', marginRight: 'auto'}}> Validar! </Text>
+  
+            </Pressable>
+            </View>
+  
+            <View style={{marginRight: 'auto', marginLeft: 10}}>
+            <Pressable style={{borderWidth: 1, borderRadius: 4, borderColor: '#6c68ff', height: 25, width:80}}
+              onPress={toggleModal}>
+                <Text style={{fontSize: 17, marginRight: 'auto', marginLeft: 'auto'}}>
+                  Voltar
+                </Text>
+  
+            </Pressable>
+            </View>
+              
+            </View>
+           </View>
+          </Modal>
+  
+  
+  {/*setVaga('');*/}
+  
+        </View>
+        )}
+  
+  
+  
+  
+  
+  
+  
+  {Platform.OS === "android" && (
+    <View>
+      <StatusBar
+        hidden={true} />
+          <Modal
+          isVisible={IsModalVisible2}
+          
+            
+          >
+            <View style ={{backgroundColor: 'white', borderRadius: 12, height: 200, width: 300, marginRight:'auto', marginLeft:'auto'}}>
+            
+            <Text style={{
+              marginTop: 10,
+              marginBottom: 10,
+              fontSize: 22,
+              marginLeft: 10,
+              marginRight: 10,
+              justifyContent: 'center'
+            }}>
+            Deseja cancelar a validação da vaga
+          </Text> 
+  
+          <Text style={{
+              marginTop: 2,
+              marginBottom: 10,
+              fontSize: 22,
+              marginLeft: 10,
+              marginRight: 10,
+              justifyContent: 'center',
+              fontWeight: 'bold'
+            }}>
+          {vaga}?
+  
+          </Text>
+           
+          <View style={{height: 30}}/>
+            
+          <View style={{flexDirection: 'row'}}>
+  
+            <View style={{marginLeft: 'auto', marginRight: 10}}>
+            <Pressable style={{backgroundColor: '#6c68ff', borderRadius: 4, height: 25, width: 80}}
+              onPress={()=> {
+                unvalid()
+                alert("Validação cancelada");
+                setTimeout(function(){ toggleModal2();
+                  }, 1000);
+                  setTimeout(function(){ setVaga('');},2000);
+              }
+              }>
+  
+                <Text style={{fontSize: 17, color: 'white', marginLeft: 'auto', marginRight: 'auto'}}> Sim! </Text>
+  
+            </Pressable>
+            </View>
+  
+            <View style={{marginRight: 'auto', marginLeft: 10}}>
+            <Pressable style={{borderWidth: 1, borderRadius: 4, borderColor: '#6c68ff', height: 25, width:80}}
+              onPress={toggleModal2}>
+                <Text style={{fontSize: 17, marginRight: 'auto', marginLeft: 'auto'}}>
+                  Voltar
+                </Text>
+  
+            </Pressable>
+            </View>
+              
+            </View>
+           </View>
+          </Modal>
+  
+  
+  {/**/}
+  
+        </View>
+        )}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  {Platform.OS === "android" && (
+    <View>
+      <StatusBar
+        hidden={true} />
+          <Modal
+          isVisible={IsModalVisible3}
+          
+            
+          >
+            <View style ={{backgroundColor: 'white', borderRadius: 12, height: 150, width: 250, marginRight:'auto', marginLeft:'auto'}}>
+            
+            <Text style={{
+              marginTop: 10,
+              marginBottom: 10,
+              fontSize: 22,
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              justifyContent: 'center'
+            }}>
+            Valide sua vaga!
+          </Text> 
+  
+           
+          <View style={{height: 30}}/>
+            
+            <Pressable style={{borderWidth: 1, 
+            marginLeft: 'auto', 
+            marginRight: 'auto', 
+            borderRadius: 4, 
+            backgroundColor:'#6c68ff',  
+            borderColor: '#6c68ff', 
+            height: 30, width:90}}
+              onPress={toggleModal3}>
+                <Text style={{fontSize: 20, marginRight: 'auto', marginLeft: 'auto', color: 'white'}}>
+                  Ok
+                </Text>
+  
+            </Pressable>
+            
+           
+           </View>
+          </Modal>
+  
+  
+  {/**/}
+  
+        </View>
+        )}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+      <MapView
+          ref={map => this.mapView = map}
+            initialRegion={{
+            latitude: -22.25473293664138, 
+            longitude: -45.70466075394644,
+            latitudeDelta: 0.0030733, //zoom
+            longitudeDelta: 0.0014033,
+          }}
+          style={styles.MapView}
+          rotateEnabled={false}
+          showsPointsOfInterest={false}
+          showsBuildings={false}
+          zoomEnabled={false}
+          scrollEnabled={false}
+      >
+  
+  {this.state.places.map(place => (
+    
+      place.id == 0 && aux0 == 1?  
+      (
         <MapView.Marker 
+                  title={"Vaga " + place.id}
+                  description={'Rua' + place.rua}
+                  ref={mark => place.mark = mark}
+                  key={place.id}
+                  pinColor={cor[place.id]}
+                  coordinate={{
+                    latitude: place.latitude,
+                    longitude: place.longitude,
+                }}
+                
+          />
+      ):
+      (<></>)
+  
+  
+    
+    ))}
+  
+  {this.state.places.map(place => (
+    
+    place.id == 1 && aux1 == 1?  
+    (
+      <MapView.Marker 
                 title={"Vaga " + place.id}
                 description={'Rua' + place.rua}
                 ref={mark => place.mark = mark}
@@ -692,138 +719,188 @@ else if(userVal == 'A2')
               }}
               
         />
-    ))
+    ):
+    (<></>)
+  
+  
+  
+  ))}
+  
+  {this.state.places.map(place => (
     
-    :
+    place.id == 2 && aux2 == 1?  
     (
-          <>
-          </>
-    )}
-
-   
-
-   
+      <MapView.Marker 
+                title={"Vaga " + place.id}
+                description={'Rua' + place.rua}
+                ref={mark => place.mark = mark}
+                key={place.id}
+                pinColor={cor[place.id]}
+                coordinate={{
+                  latitude: place.latitude,
+                  longitude: place.longitude,
+              }}
+              
+        />
+    ):
+    (<></>)
+  
+  
+  
+  ))}
+  
+  {/* CODIGO FUNCIONAL DA VAGA
+      {aux == 1 ? 
+        
+        //Em todos os dois casos ele coloca o pincolor com o valor de 'color'. E o color varia conforme varia o sensorv (linha 27)
+        this.state.places.map(place => (
+          
+          <MapView.Marker 
+                  title={"Vaga " + place.id}
+                  description={'Rua' + place.rua}
+                  ref={mark => place.mark = mark}
+                  key={place.id}
+                  pinColor={cor[place.id]}
+                  coordinate={{
+                    latitude: place.latitude,
+                    longitude: place.longitude,
+                }}
+                
+          />
+          
+      ))
+      
+      :
+      (
+            <>
+            </>
+      )}
+  
+   */}
+     
+      
+    </MapView>
     
-  </MapView>
+  
+  
+    <ScrollView 
+      style={styles.placesContainer}
+      horizontal
+      pagingEnabled
+      
+      onMomentumScrollEnd={e => {
+        const scrolled = e.nativeEvent.contentOffset.x;
+        const place = (scrolled > 0)
+        ? scrolled / Dimensions.get('window').width
+        : 0;
+  
+        const place2 = Math.round(place);
+  
+        const { latitude, longitude, mark } = this.state.places[place2];
+          
+        this.mapView.animateToCoordinate({
+          latitude,
+          longitude,
+        }, 1000);
+  
+        setTimeout(() => {
+          mark.showCallout();
+  
+        }, 1000);
+  
+        
+  
+      }}> 
+  
+      { this.state.places.map(place => (
+          <View 
+            key={place.id}
+            style={styles.place}>
+  
+          <Text style={styles.text}>
+            Vaga {place.id}
+          </Text>  
+          <Text style={styles.text2}>
+            Rua: {place.rua}
+          </Text>  
+          <Text style={styles.text2}>
+            Bairro: {place.bairro}
+          </Text> 
+          <Text style={styles.text2}>
+            Código: {place.codigo}
+          </Text> 
+          
+  
+  
+          <RectButton 
+              style={{borderColor: '#FF11FF',
+              borderWidth: 12,
+              marginRight: 'auto',
+              marginLeft: 'auto',
+              height: 40,
+              width: 300,
+              backgroundColor: corbotao[place.id],
+              borderRadius: 7,
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 10}}
+              onPress={()=> {
+                            setVaga(place.codigo);
+                            setIsModalVisible(!IsModalVisible);}}
+          >
+          <Text style={{fontSize: 20, color: 'white'}}>
+            {textobotao[place.id]}
+          </Text>
+          </RectButton>
+  
+  
+  {userVal == place.codigo ?
+    (
+  
+  <RectButton 
+              style={{borderColor: '#FF11FF',
+              borderWidth: 12,
+              marginRight: 'auto',
+              marginLeft: 'auto',
+              height: 40,
+              width: 300,
+              backgroundColor: '#6c68ff',
+              borderRadius: 7,
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 10}}
+              onPress={()=> {
+                if(userVal != '0')
+                {
+                  setVaga(userVal)
+                }
+                            setIsModalVisible2(!IsModalVisible2);}}
+          >
+          <Text style={{fontSize: 20, color: 'white'}}>
+            Cancelar validação desta vaga
+          </Text>
+          </RectButton>
+  
+  
+  
+    )
+  :
+  (<></>)}
+      
+  
+          </View>
+  
+  
+  
+      ))}
+  
+    </ScrollView>
+  
+    </View>
+    );
+  }
   
 
-
-  <ScrollView 
-    style={styles.placesContainer}
-    horizontal
-    pagingEnabled
-    
-    onMomentumScrollEnd={e => {
-      const scrolled = e.nativeEvent.contentOffset.x;
-      const place = (scrolled > 0)
-      ? scrolled / Dimensions.get('window').width
-      : 0;
-
-      const place2 = Math.round(place);
-
-      const { latitude, longitude, mark } = this.state.places[place2];
-        
-      this.mapView.animateToCoordinate({
-        latitude,
-        longitude,
-      }, 1000);
-
-      setTimeout(() => {
-        mark.showCallout();
-
-      }, 1000);
-
-      
-
-    }}> 
-
-    { this.state.places.map(place => (
-        <View 
-          key={place.id}
-          style={styles.place}>
-
-        <Text style={styles.text}>
-          Vaga {place.id}
-        </Text>  
-        <Text style={styles.text2}>
-          Rua: {place.rua}
-        </Text>  
-        <Text style={styles.text2}>
-          Bairro: {place.bairro}
-        </Text> 
-        <Text style={styles.text2}>
-          Código: {place.codigo}
-        </Text> 
-        
-
-
-        <RectButton 
-            style={{borderColor: '#FF11FF',
-            borderWidth: 12,
-            marginRight: 'auto',
-            marginLeft: 'auto',
-            height: 40,
-            width: 300,
-            backgroundColor: corbotao[place.id],
-            borderRadius: 7,
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: 10}}
-            onPress={()=> {
-                          setVaga(place.codigo);
-                          setIsModalVisible(!IsModalVisible);}}
-        >
-        <Text style={{fontSize: 20, color: 'white'}}>
-          {textobotao[place.id]}
-        </Text>
-        </RectButton>
-
-
-{userVal == place.codigo ?
-  (
-
-<RectButton 
-            style={{borderColor: '#FF11FF',
-            borderWidth: 12,
-            marginRight: 'auto',
-            marginLeft: 'auto',
-            height: 40,
-            width: 300,
-            backgroundColor: '#6c68ff',
-            borderRadius: 7,
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: 10}}
-            onPress={()=> {
-              if(userVal != '0')
-              {
-                setVaga(userVal)
-              }
-                          setIsModalVisible2(!IsModalVisible2);}}
-        >
-        <Text style={{fontSize: 20, color: 'white'}}>
-          Cancelar validação desta vaga
-        </Text>
-        </RectButton>
-
-
-
-  )
-:
-(<></>)}
-    
-
-        </View>
-
-
-
-    ))}
-
-  </ScrollView>
-
-  </View>
-  );
-}
 
 
 const styles= StyleSheet.create({

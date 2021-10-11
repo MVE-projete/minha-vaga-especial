@@ -144,7 +144,8 @@ else{
         <RectButton 
             onPress={ () => {
                 navigation.navigate('RegistrationScreen');
-                alert('Prezado Usuário(a): caso já possua conta no aplicativo MVE, pressione o botão "Entrar"')}}
+                //alert('Prezado Usuário(a): caso já possua conta no aplicativo MVE, pressione o botão "Entrar"')
+            }}
             style={{
                 height: 30,
                 width: 400,
