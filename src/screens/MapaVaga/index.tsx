@@ -66,7 +66,7 @@ export function MapaVaga({navigation}){
   let corbotaoA2;
   let corA0;
   let corA1;
-
+ let place2 = 0;
   
   const [validA0, setValidA0] = useState(0);
   const [validA1, setValidA1] = useState(0);
@@ -88,7 +88,7 @@ export function MapaVaga({navigation}){
   const [validstate, setValidstate] = useState();
   const [IsModalVisible, setIsModalVisible] = useState(false);
   const [IsModalVisible2, setIsModalVisible2] = useState(false);
-  const [IsModalVisible3, setIsModalVisible3] = useState(true);
+  const [IsModalVisible3, setIsModalVisible3] = useState(false);
   const [vaga, setVaga] = useState('');
   let tipoVaga;
   const email = firebase.auth().currentUser?.email?.replace('.','');
@@ -634,7 +634,8 @@ else if(userVal == 'A2')
             backgroundColor:'#6c68ff',  
             borderColor: '#6c68ff', 
             height: 30, width:90}}
-              onPress={toggleModal3}>
+              onPress={()=> {toggleModal3();
+              this.state.places[place2].mark.showCallout()}}>
                 <Text style={{fontSize: 20, marginRight: 'auto', marginLeft: 'auto', color: 'white'}}>
                   Ok
                 </Text>
@@ -665,6 +666,7 @@ else if(userVal == 'A2')
   
   
       <MapView
+      onMapReady={toggleModal3}
           ref={map => this.mapView = map}
             initialRegion={{
             latitude: -22.25473293664138, 
@@ -686,7 +688,7 @@ else if(userVal == 'A2')
       (
         <MapView.Marker 
                   title={"Vaga " + place.id}
-                  description={'Rua' + place.rua}
+                  description={'Rua ' + place.rua}
                   ref={mark => place.mark = mark}
                   key={place.id}
                   pinColor={cor[place.id]}
@@ -709,7 +711,7 @@ else if(userVal == 'A2')
     (
       <MapView.Marker 
                 title={"Vaga " + place.id}
-                description={'Rua' + place.rua}
+                description={'Rua ' + place.rua}
                 ref={mark => place.mark = mark}
                 key={place.id}
                 pinColor={cor[place.id]}
@@ -732,7 +734,7 @@ else if(userVal == 'A2')
     (
       <MapView.Marker 
                 title={"Vaga " + place.id}
-                description={'Rua' + place.rua}
+                description={'Rua ' + place.rua}
                 ref={mark => place.mark = mark}
                 key={place.id}
                 pinColor={cor[place.id]}
@@ -794,7 +796,7 @@ else if(userVal == 'A2')
         ? scrolled / Dimensions.get('window').width
         : 0;
   
-        const place2 = Math.round(place);
+        place2 = Math.round(place);
   
         const { latitude, longitude, mark } = this.state.places[place2];
           
@@ -929,7 +931,12 @@ place:{
   maxHeight: 250,
   backgroundColor: '#FFF',
   marginHorizontal: 20,
-  borderRadius: 12
+  borderTopStartRadius: 12,
+  borderTopEndRadius: 12,
+  borderColor: '#6c68ff',
+  borderWidth: 1,
+  borderBottomStartRadius:0,
+  borderBottomEndRadius: 0
 
 },
 text: {
