@@ -1,4 +1,4 @@
-import MapView from 'react-native-maps';
+import MapView from 'react-native-maps'; //IDOSO
 import React, { useState, useEffect } from 'react';
 import { View, 
           Text,
@@ -27,7 +27,7 @@ export function MapaVaga2({navigation}){
         description: 'Estacionamento Unissul',
         latitude: -22.257638590895496,  
         longitude: -45.703384120913576,
-        codigo: 'A3'
+        codigo: 'B001' //ESTA VAGA FUNCIONA COM O SENSOR 
       },
       {
         id: 1,
@@ -36,7 +36,7 @@ export function MapaVaga2({navigation}){
         description: 'Estacionamento Unissul',
         latitude: -22.25624494403089, 
         longitude: -45.702733423060245,
-        codigo: 'A4',
+        codigo: 'B002',
       },
       {
         id: 2,
@@ -45,7 +45,7 @@ export function MapaVaga2({navigation}){
         description: 'Estacionamento Unissul',
         latitude: -22.257077288363266, 
         longitude:  -45.70224044657601,
-        codigo: 'A5', 
+        codigo: 'B003', 
       }
     ],
       
@@ -53,29 +53,29 @@ export function MapaVaga2({navigation}){
 
   let textobotao;
 
-  let textobotaoA3;
-  let textobotaoA4;
-  let textobotaoA5;
+  let textobotaoB001;
+  let textobotaoB002;
+  let textobotaoB003;
 
   let corbotao;
 
-  let corbotaoA3;
-  let corbotaoA4;
-  let corbotaoA5;
+  let corbotaoB001;
+  let corbotaoB002;
+  let corbotaoB003;
 
-  let corA3;
-  let corA4;
-  let corA5;
+  let corB001;
+  let corB002;
+  let corB003;
 
   let place2 = 0;
   
-  const [validA3, setValidA3] = useState(0);
-  const [validA4, setValidA4] = useState(0);
-  const [validA5, setValidA5] = useState(0);
+  const [validB001, setValidB001] = useState(0);
+  const [validB002, setValidB002] = useState(0);
+  const [validB003, setValidB003] = useState(0);
 
-  const [sensA3, setSensA3] = useState();
-  const [sensA4, setSensA4] = useState();
-  const [sensA5, setSensA5] = useState();
+  const [sensB001, setSensB001] = useState();
+  const [sensB002, setSensB002] = useState();
+  const [sensB003, setSensB003] = useState();
 
   const [userVal, setUserVal] = useState('0');
   
@@ -120,16 +120,16 @@ export function MapaVaga2({navigation}){
   });
 
     
-    if(validA5 == undefined)
+    if(validB003 == undefined)
     {
-      firebase.database().ref('verificacao/A5').on('value', (snapshot) => {
-        setValidA5(snapshot.val());
+      firebase.database().ref('verificacao/B003').on('value', (snapshot) => {
+        setValidB003(snapshot.val());
       });
-      firebase.database().ref('verificacao/A3').on('value', (snapshot) => {
-        setValidA3(snapshot.val());
+      firebase.database().ref('verificacao/B001').on('value', (snapshot) => {
+        setValidB001(snapshot.val());
       });
-      firebase.database().ref('verificacao/A4').on('value', (snapshot) => {
-        setValidA4(snapshot.val());
+      firebase.database().ref('verificacao/B002').on('value', (snapshot) => {
+        setValidB002(snapshot.val());
       });
       firebase.database().ref('users/' + email +'/validacao').on('value', (snapshot) => {
         setUserVal(snapshot.val());
@@ -142,16 +142,20 @@ export function MapaVaga2({navigation}){
 
 function unvalid(){
 
-  if(vaga == 'A5')
+  if(vaga == 'B003')
 
   {firebase.database().ref('verificacao').update({
-    A5: 0,
+    B003: 0,
   })
   firebase.database().ref('users/' + email ).update({
     validacao: 0,
   })
+  firebase.database().ref('info/B003').update({
+    email: '',
+    tipo: ''
+  })
 setUserVal('0')
-setValidA5(0)
+setValidB003(0)
 setAux5(0);
 setTimeout(function() {
   setAux5(1);
@@ -160,16 +164,20 @@ setTimeout(function() {
   
 
 
-  else if(vaga == 'A3')
+  else if(vaga == 'B001')
 
   {firebase.database().ref('verificacao').update({
-    A3: 0,
+    B001: 0,
   })
   firebase.database().ref('users/' + email ).update({
     validacao: 0,
   })
+  firebase.database().ref('info/B001').update({
+    email: '',
+    tipo: ''
+  })
   setUserVal('0')
-  setValidA3(0)
+  setValidB001(0)
   setAux3(0);
   setTimeout(function() {
     setAux3(1);
@@ -178,15 +186,19 @@ setTimeout(function() {
   
 }
 
-  else if(vaga == 'A4')
+  else if(vaga == 'B002')
   {firebase.database().ref('verificacao').update({
-    A4: 0,
+    B002: 0,
   })
   firebase.database().ref('users/' + email ).update({
     validacao: 0,
   })
+  firebase.database().ref('info/B002').update({
+    email: '',
+    tipo: ''
+  })
   setUserVal('0')
-  setValidA4(0)
+  setValidB002(0)
   setAux4(0);
   setTimeout(function() {
     setAux4(1);
@@ -200,21 +212,30 @@ setTimeout(function() {
 
   function valid(){
 
-    if(vaga == 'A5')
+    if(vaga == 'B003')
 
     {
-                    if(validA5 == 0)
+                    if(validB003 == 0)
                   {
-                    firebase.database().ref('verificacao').update({
-                      A5: 1,
-                    })
-                    firebase.database().ref('users/' + email ).update({
-                      validacao: 'A5',
-                    })
-                    alert("Validação feita com sucesso");
-                    setValidA5(1);
-                    setTimeout(function(){ toggleModal(); }, 1000);
-                    setUserVal('A5');
+                    if(sensB003 == 1)
+
+                      {firebase.database().ref('verificacao').update({
+                        B003: 1,
+                      })
+                      firebase.database().ref('users/' + email ).update({
+                        validacao: 'B003',
+                      })
+                      firebase.database().ref('info/B003').update({
+                        email: email,
+                        tipo: tipoVaga
+                      })
+                      alert("Validação feita com sucesso");
+                      setValidB003(1);
+                      setTimeout(function(){ toggleModal(); }, 1000);
+                      setUserVal('B003');}
+                      else{
+                        alert("Caro usuário(a): Por questões de segurança, estacione seu veículo primeiro, e depois valida a vaga")
+                      }
                   }
                   else
                   {
@@ -226,22 +247,32 @@ setTimeout(function() {
                       }, 10);
         }
 
-        else if (vaga == 'A3')
+        else if (vaga == 'B001')
         {
 
 
-          if(validA3 == 0)
+          if(validB001 == 0)
                   {
-                    firebase.database().ref('verificacao').update({
-                      A3: 1,
-                    })
-                    firebase.database().ref('users/' + email ).update({
-                      validacao: 'A3',
-                    })
-                    alert("Validação feita com sucesso");
-                    setUserVal('A3');
-                    setValidA3(1);
-                    setTimeout(function(){ toggleModal(); }, 1000);
+                    if(sensB001 == 1)
+
+                    {  firebase.database().ref('verificacao').update({
+                        B001: 1,
+                      })
+                      firebase.database().ref('users/' + email ).update({
+                        validacao: 'B001',
+                      })
+                      firebase.database().ref('info/B001').update({
+                        email: email,
+                        tipo: tipoVaga
+                      })
+                      alert("Validação feita com sucesso");
+                      setUserVal('B001');
+                      setValidB001(1);
+                      setTimeout(function(){ toggleModal(); }, 1000);}
+                      else
+                      {
+                        alert("Caro usuário(a): Por questões de segurança, estacione seu veículo primeiro, e depois valida a vaga")
+                      }
                     
                   }
                   else
@@ -258,22 +289,30 @@ setTimeout(function() {
           
 
         }
-        else if(vaga == 'A4')
+        else if(vaga == 'B002')
         {
 
 
-          if(validA4 == 0)
+          if(validB002 == 0)
           {
-            firebase.database().ref('verificacao').update({
-              A4: 1,
-            })
-            firebase.database().ref('users/' + email ).update({
-              validacao: 'A4',
-            })
-            alert("Validação feita com sucesso");
-            setUserVal('A4');
-            setValidA4(1);
-            setTimeout(function(){ toggleModal(); }, 1000);
+            if(sensB002 == 1)
+              {firebase.database().ref('verificacao').update({
+                B002: 1,
+              })
+              firebase.database().ref('users/' + email ).update({
+                validacao: 'B002',
+              })
+              firebase.database().ref('info/B002').update({
+                email: email,
+                tipo: tipoVaga
+              })
+              alert("Validação feita com sucesso");
+              setUserVal('B002');
+              setValidB002(1);
+              setTimeout(function(){ toggleModal(); }, 1000);}
+              else{
+                alert("Caro usuário(a): Por questões de segurança, estacione seu veículo primeiro, e depois valida a vaga")
+              }
             
           }
           else
@@ -292,30 +331,30 @@ setTimeout(function() {
 
   }
 
-  useEffect(() => { //Função pra puxar o valor do sensor do firebase (armazenada na variável 'sensA5')
+  useEffect(() => { //Função pra puxar o valor do sensor do firebase (armazenada na variável 'sensB003')
 
     async function dados(){
-      await firebase.database().ref('vagas/A5').on('value', (snapshot) => {
+      await firebase.database().ref('vagas/B003').on('value', (snapshot) => {
         
-        setSensA5(snapshot.val()); //cada vez que o valor do sensor mudar, ele dá um delay, tira o pino, e coloca de novo
+        setSensB003(snapshot.val()); //cada vez que o valor do sensor mudar, ele dá um delay, tira o pino, e coloca de novo
         setAux5(0);
         setTimeout(function() {
           setAux5(1);
         }, 5);
       
       });
-      await firebase.database().ref('vagas/A3').on('value', (snapshot) => {
+      await firebase.database().ref('sensor').on('value', (snapshot) => {
         
-        setSensA3(snapshot.val()); //cada vez que o valor do sensor mudar, ele dá um delay, tira o pino, e coloca de novo
+        setSensB001(snapshot.val()); //cada vez que o valor do sensor mudar, ele dá um delay, tira o pino, e coloca de novo
         setAux3(0);
         setTimeout(function() {
           setAux3(1);
         }, 5);
       
       });
-      await firebase.database().ref('vagas/A4').on('value', (snapshot) => {
+      await firebase.database().ref('vagas/B002').on('value', (snapshot) => {
         
-        setSensA4(snapshot.val());  //cada vez que o valor do sensor mudar, ele dá um delay, tira o pino, e coloca de novo
+        setSensB002(snapshot.val());  //cada vez que o valor do sensor mudar, ele dá um delay, tira o pino, e coloca de novo
         setAux4(0);
         setTimeout(function() {
           setAux4(1);
@@ -328,107 +367,107 @@ setTimeout(function() {
   }, []);
 
 
-  if (sensA4 == 1 && validA4 == 1)
+  if (sensB002 == 1 && validB002 == 1)
   {
-    corA4 = 'red';
-    corbotaoA4 = '#DE7171';
-    textobotaoA4 = 'Esta vaga está validada';
+    corB002 = 'red';
+    corbotaoB002 = '#DE7171';
+    textobotaoB002 = 'Esta vaga está validada';
   }
-  else if (sensA4 == 0 && validA4 == 0)
+  else if (sensB002 == 0 && validB002 == 0)
   {
-    corA4 = 'green';
-    corbotaoA4 = '#6c68ff';
-    textobotaoA4 = 'Validar vaga';
+    corB002 = 'green';
+    corbotaoB002 = '#6c68ff';
+    textobotaoB002 = 'Validar vaga';
   }
-  else if(sensA4 == 1 && validA4 == 0)
+  else if(sensB002 == 1 && validB002 == 0)
   {
-    corA4 = 'yellow';
-    corbotaoA4 = '#6c68ff';
-    textobotaoA4 = 'Validar vaga';
+    corB002 = 'yellow';
+    corbotaoB002 = '#6c68ff';
+    textobotaoB002 = 'Validar vaga';
   }
-  else if(sensA4 == 0 && validA4 == 1)
+  else if(sensB002 == 0 && validB002 == 1)
   {
-    corA4 = 'orange';
-    corbotaoA4 = '#DE7171';
-    textobotaoA4 = 'Esta vaga está validada';
-  }
-
-
-
-
-
-
-  if (sensA3 == 1 && validA3 == 1)
-  {
-    corA3 = 'red';
-    corbotaoA3 = '#DE7171';
-    textobotaoA3 = 'Esta vaga está validada';
-  }
-  else if (sensA3 == 0 && validA3 == 0)
-  {
-    corA3 = 'green';
-    corbotaoA3 = '#6c68ff';
-    textobotaoA3 = 'Validar vaga';
-  }
-  else if(sensA3 == 1 && validA3 == 0)
-  {
-    corA3 = 'yellow';
-    corbotaoA3 = '#6c68ff';
-    textobotaoA3 = 'Validar vaga';
-  }
-  else if(sensA3 == 0 && validA3 == 1)
-  {
-    corA3 = 'orange';
-    corbotaoA3 = '#DE7171';
-    textobotaoA3 = 'Esta vaga está validada';
+    corB002 = 'orange';
+    corbotaoB002 = '#DE7171';
+    textobotaoB002 = 'Esta vaga está validada';
   }
 
 
 
 
 
-  if (sensA5 == 1 && validA5 == 1)
+
+  if (sensB001 == 1 && validB001 == 1)
   {
-    corA5 = 'red';
-    corbotaoA5 = '#DE7171';
-    textobotaoA5 = 'Esta vaga está validada';
+    corB001 = 'red';
+    corbotaoB001 = '#DE7171';
+    textobotaoB001 = 'Esta vaga está validada';
   }
-  else if (sensA5 == 0 && validA5 == 0)
+  else if (sensB001 == 0 && validB001 == 0)
   {
-    corA5 = 'green';
-    corbotaoA5 = '#6c68ff';
-    textobotaoA5 = 'Validar vaga';
+    corB001 = 'green';
+    corbotaoB001 = '#6c68ff';
+    textobotaoB001 = 'Validar vaga';
   }
-  else if(sensA5 == 1 && validA5 == 0)
+  else if(sensB001 == 1 && validB001 == 0)
   {
-    corA5 = 'yellow';
-    corbotaoA5 = '#6c68ff';
-    textobotaoA5 = 'Validar vaga';
+    corB001 = 'yellow';
+    corbotaoB001 = '#6c68ff';
+    textobotaoB001 = 'Validar vaga';
   }
-  else if(sensA5 == 0 && validA5 == 1)
+  else if(sensB001 == 0 && validB001 == 1)
   {
-    corA5 = 'orange';
-    corbotaoA5 = '#DE7171';
-    textobotaoA5 = 'Esta vaga está validada';
+    corB001 = 'orange';
+    corbotaoB001 = '#DE7171';
+    textobotaoB001 = 'Esta vaga está validada';
+  }
+
+
+
+
+
+  if (sensB003 == 1 && validB003 == 1)
+  {
+    corB003 = 'red';
+    corbotaoB003 = '#DE7171';
+    textobotaoB003 = 'Esta vaga está validada';
+  }
+  else if (sensB003 == 0 && validB003 == 0)
+  {
+    corB003 = 'green';
+    corbotaoB003 = '#6c68ff';
+    textobotaoB003 = 'Validar vaga';
+  }
+  else if(sensB003 == 1 && validB003 == 0)
+  {
+    corB003 = 'yellow';
+    corbotaoB003 = '#6c68ff';
+    textobotaoB003 = 'Validar vaga';
+  }
+  else if(sensB003 == 0 && validB003 == 1)
+  {
+    corB003 = 'orange';
+    corbotaoB003 = '#DE7171';
+    textobotaoB003 = 'Esta vaga está validada';
   }
 
   //Código novo
-if(userVal == 'A3')
+if(userVal == 'B001')
   {
-    textobotaoA3 = 'Você validou já esta vaga';
+    textobotaoB001 = 'Você validou já esta vaga';
   }
-else if(userVal == 'A4')
+else if(userVal == 'B002')
   {
-    textobotaoA4 = 'Você validou já esta vaga';
+    textobotaoB002 = 'Você validou já esta vaga';
   }
-else if(userVal == 'A5')
+else if(userVal == 'B003')
   {
-    textobotaoA5 = 'Você já validou esta vaga';
+    textobotaoB003 = 'Você já validou esta vaga';
   }
 
-  cor = [corA3, corA4, corA5];
-  corbotao = [corbotaoA3, corbotaoA4, corbotaoA5];
-  textobotao = [textobotaoA3, textobotaoA4, textobotaoA5];
+  cor = [corB001, corB002, corB003];
+  corbotao = [corbotaoB001, corbotaoB002, corbotaoB003];
+  textobotao = [textobotaoB001, textobotaoB002, textobotaoB003];
 
   
 
@@ -753,7 +792,7 @@ else if(userVal == 'A5')
   {/* CODIGO FUNCIONAL DA VAGA
       {aux == 1 ? 
         
-        //Em todos os dois casos ele coloca o pincolor com o valor de 'color'. E o color varia conforme varia o sensA5 (linha 27)
+        //Em todos os dois casos ele coloca o pincolor com o valor de 'color'. E o color varia conforme varia o sensB003 (linha 27)
         this.state.places.map(place => (
           
           <MapView.Marker 
