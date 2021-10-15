@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { Menu } from './src/screens/Menu'
 import { Home } from './src/screens/Home/';
+import { Fiscal } from './src/screens/Fiscal';
 import { Login } from './src/screens/Login';
 import { RegistrationScreen }  from './src/screens/registrationScreen/';
 import { MapaVaga } from './src/screens/MapaVaga';
@@ -62,6 +63,11 @@ export default function App() {
                 name="MapaVaga2"
                 component={MapaVaga2}
             />
+            <Screen 
+              name="Fiscal"
+              component={Fiscal}
+            />
+
         </Navigator>
     
     </NavigationContainer>

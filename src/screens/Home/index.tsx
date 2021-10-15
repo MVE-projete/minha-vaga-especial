@@ -160,6 +160,27 @@ else{
             Não possui uma conta? Registre-se
         </Text>
         </RectButton>
+        <RectButton 
+            style={{
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        height: 45,
+        width: 150,
+        borderRadius: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 50
+            }}
+            onPress={()=>
+                {navigation.navigate('Fiscal')}
+        }
+            
+        >
+        <Text style={{fontSize: 12}}>
+            
+        </Text>
+        </RectButton>
+       
 
 
 

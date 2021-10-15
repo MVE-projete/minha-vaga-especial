@@ -151,7 +151,7 @@ function unvalid(){
     validacao: 0,
   })
   firebase.database().ref('info/A003').update({
-    email: '',
+    email: 'ninguém',
     tipo: ''
   })
 setUserVal('0')
@@ -173,7 +173,7 @@ setTimeout(function() {
     validacao: 0,
   })
   firebase.database().ref('info/A001').update({
-    email: '',
+    email: 'ninguém',
     tipo: ''
   })
   setUserVal('0')
@@ -194,7 +194,7 @@ setTimeout(function() {
     validacao: 0,
   })
   firebase.database().ref('info/A002').update({
-    email: '',
+    email: 'ninguém',
     tipo: ''
   })
   setUserVal('0')
@@ -374,24 +374,28 @@ setTimeout(function() {
     corA002 = 'red';
     corbotaoA002 = '#DE7171';
     textobotaoA002 = 'Esta vaga está validada';
+    
   }
   else if (sensA002 == 0 && validA002 == 0)
   {
     corA002 = 'green';
     corbotaoA002 = '#6c68ff';
     textobotaoA002 = 'Validar vaga';
+   
   }
   else if(sensA002 == 1 && validA002 == 0)
   {
     corA002 = 'yellow';
     corbotaoA002 = '#6c68ff';
     textobotaoA002 = 'Validar vaga';
+    
   }
   else if(sensA002 == 0 && validA002 == 1)
   {
     corA002 = 'orange';
     corbotaoA002 = '#DE7171';
     textobotaoA002 = 'Esta vaga está validada';
+    
   }
 
 
@@ -404,24 +408,28 @@ setTimeout(function() {
     corA001 = 'red';
     corbotaoA001 = '#DE7171';
     textobotaoA001 = 'Esta vaga está validada';
+    
   }
   else if (sensA001 == 0 && validA001 == 0)
   {
     corA001 = 'green';
     corbotaoA001 = '#6c68ff';
     textobotaoA001 = 'Validar vaga';
+    
   }
   else if(sensA001 == 1 && validA001 == 0)
   {
     corA001 = 'yellow';
     corbotaoA001 = '#6c68ff';
     textobotaoA001 = 'Validar vaga';
+    
   }
   else if(sensA001 == 0 && validA001 == 1)
   {
     corA001 = 'orange';
     corbotaoA001 = '#DE7171';
     textobotaoA001 = 'Esta vaga está validada';
+   
   }
 
 
@@ -433,24 +441,28 @@ setTimeout(function() {
     color = 'red';
     corbotaoA003 = '#DE7171';
     textobotaoA003 = 'Esta vaga está validada';
+    
   }
   else if (sensorv == 0 && validstate == 0)
   {
     color = 'green';
     corbotaoA003 = '#6c68ff';
     textobotaoA003 = 'Validar vaga';
+    
   }
   else if(sensorv == 1 && validstate == 0)
   {
     color = 'yellow';
     corbotaoA003 = '#6c68ff';
     textobotaoA003 = 'Validar vaga';
+    
   }
   else if(sensorv == 0 && validstate == 1)
   {
     color = 'orange';
     corbotaoA003 = '#DE7171';
     textobotaoA003 = 'Esta vaga está validada';
+    
   }
 
   //Código novo

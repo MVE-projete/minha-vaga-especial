@@ -69,15 +69,15 @@ export function MapaVaga2({navigation}){
 
   let place2 = 0;
   
-  const [validB001, setValidB001] = useState(0);
-  const [validB002, setValidB002] = useState(0);
-  const [validB003, setValidB003] = useState(0);
+  const [validB001, setValidB001] = useState();
+  const [validB002, setValidB002] = useState();
+  const [validB003, setValidB003] = useState();
 
   const [sensB001, setSensB001] = useState();
   const [sensB002, setSensB002] = useState();
   const [sensB003, setSensB003] = useState();
 
-  const [userVal, setUserVal] = useState('0');
+  const [userVal, setUserVal] = useState();
   
 
   const [aux3, setAux3] = useState(1);
@@ -151,7 +151,7 @@ function unvalid(){
     validacao: 0,
   })
   firebase.database().ref('info/B003').update({
-    email: '',
+    email: 'ninguém',
     tipo: ''
   })
 setUserVal('0')
@@ -173,7 +173,7 @@ setTimeout(function() {
     validacao: 0,
   })
   firebase.database().ref('info/B001').update({
-    email: '',
+    email: 'ninguém',
     tipo: ''
   })
   setUserVal('0')
@@ -194,7 +194,7 @@ setTimeout(function() {
     validacao: 0,
   })
   firebase.database().ref('info/B002').update({
-    email: '',
+    email: 'ninguém',
     tipo: ''
   })
   setUserVal('0')
@@ -521,7 +521,7 @@ else if(userVal == 'B003')
             <Pressable style={{backgroundColor: '#6c68ff', borderRadius: 4, height: 25, width: 80}}
               onPress={()=> {if(userVal == '0')
               {valid()}
-              else(alert("Você já validou uma vaga. Para cancelar a validação aperte em"))}}>
+              else(alert("Prezado(a) usuário(a): Você já validou uma vaga. Cancele a validação da sua vaga para poder validar outra"))}}>
                 <Text style={{fontSize: 17, color: 'white', marginLeft: 'auto', marginRight: 'auto'}}> Validar! </Text>
   
             </Pressable>
